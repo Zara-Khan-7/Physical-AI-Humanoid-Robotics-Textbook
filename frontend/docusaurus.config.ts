@@ -11,14 +11,14 @@ const config: Config = {
 
   // Set the production url of your site here
   // For GitHub Pages: https://<username>.github.io
-  url: process.env.SITE_URL || 'https://your-username.github.io',
+  url: process.env.SITE_URL || 'https://Zara-Khan-7.github.io',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub Pages it is often '/<projectName>/'
-  baseUrl: process.env.BASE_URL || '/Hackathon/',
+  baseUrl: process.env.BASE_URL || '/Physical-AI-Humanoid-Robotics-Textbook/',
 
   // GitHub pages deployment config
-  organizationName: process.env.ORG_NAME || 'your-username',
-  projectName: process.env.PROJECT_NAME || 'Hackathon',
+  organizationName: process.env.ORG_NAME || 'Zara-Khan-7',
+  projectName: process.env.PROJECT_NAME || 'Physical-AI-Humanoid-Robotics-Textbook',
   trailingSlash: false,
 
   onBrokenLinks: 'throw',
