@@ -1,0 +1,402 @@
+openapi: 3.1.0
+info:
+  title: AI-Native Textbook RAG API
+  description: Backend API for the Physical AI & Humanoid Robotics textbook chatbot
+  version: 1.0.0
+  contact:
+    name: Textbook Support
+
+servers:
+  - url: http://localhost:8000
+    description: Local development
+  - url: https://api.textbook.example.com
+    description: Production
+
+tags:
+  - name: Chat
+    description: RAG chatbot endpoints
+  - name: Search
+    description: Content search endpoints
+  - name: Health
+    description: System health endpoints
+
+paths:
+  /api/v1/chat:
+    post:
+      summary: Send a message to the RAG chatbot
+      description: |
+        Processes a user question using RAG pipeline:
+        1. Embeds the query using Google text-embedding-004
+        2. Searches Qdrant for relevant content chunks
+        3. Generates a response using Google Gemini with retrieved context
+        4. Returns response with source citations
+      operationId: chat
+      tags:
+        - Chat
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChatRequest'
+            examples:
+              simple_question:
+                summary: Simple question
+                value:
+                  message: "What is ROS 2?"
+                  session_id: "550e8400-e29b-41d4-a716-446655440000"
+              with_context:
+                summary: Question with selected text context
+                value:
+                  message: "Can you explain this further?"
+                  session_id: "550e8400-e29b-41d4-a716-446655440000"
+                  context: "ROS 2 uses DDS for communication"
+              with_history:
+                summary: Follow-up question with history
+                value:
+                  message: "How does it compare to ROS 1?"
+                  session_id: "550e8400-e29b-41d4-a716-446655440000"
+                  history:
+                    - role: "user"
+                      content: "What is ROS 2?"
+                    - role: "assistant"
+                      content: "ROS 2 is the second generation..."
+      responses:
+        '200':
+          description: Successful response with citations
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChatResponse'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: Rate limit exceeded
+          headers:
+            Retry-After:
+              schema:
+                type: integer
+              description: Seconds until rate limit resets
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          description: External service unavailable (Gemini/Qdrant)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/v1/search:
+    get:
+      summary: Search textbook content
+      description: |
+        Performs semantic search across textbook content using vector similarity.
+        Returns relevant chunks with metadata for navigation.
+      operationId: search
+      tags:
+        - Search
+      parameters:
+        - name: q
+          in: query
+          required: true
+          description: Search query string
+          schema:
+            type: string
+            minLength: 2
+            maxLength: 500
+          example: "humanoid kinematics"
+        - name: limit
+          in: query
+          required: false
+          description: Maximum number of results
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 20
+            default: 5
+        - name: chapter
+          in: query
+          required: false
+          description: Filter by chapter ID
+          schema:
+            type: string
+          example: "02-humanoid-robotics"
+        - name: language
+          in: query
+          required: false
+          description: Filter by content language
+          schema:
+            type: string
+            enum: [en, ur]
+            default: en
+      responses:
+        '200':
+          description: Search results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchResponse'
+        '400':
+          description: Invalid query parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: Rate limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/v1/health:
+    get:
+      summary: Health check
+      description: Returns service health status and dependency connectivity
+      operationId: health
+      tags:
+        - Health
+      responses:
+        '200':
+          description: Service is healthy
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+        '503':
+          description: Service is unhealthy
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+
+components:
+  schemas:
+    ChatRequest:
+      type: object
+      required:
+        - message
+        - session_id
+      properties:
+        message:
+          type: string
+          description: User's question or message
+          minLength: 1
+          maxLength: 2000
+          example: "What is Physical AI?"
+        session_id:
+          type: string
+          format: uuid
+          description: Client-generated session identifier for conversation tracking
+          example: "550e8400-e29b-41d4-a716-446655440000"
+        context:
+          type: string
+          description: Optional selected text context from the page
+          maxLength: 1000
+          example: "ROS 2 uses a publish-subscribe pattern"
+        history:
+          type: array
+          description: Previous messages in the conversation (max 10)
+          maxItems: 10
+          items:
+            $ref: '#/components/schemas/HistoryMessage'
+        language:
+          type: string
+          enum: [en, ur]
+          default: en
+          description: Preferred response language
+
+    HistoryMessage:
+      type: object
+      required:
+        - role
+        - content
+      properties:
+        role:
+          type: string
+          enum: [user, assistant]
+        content:
+          type: string
+          maxLength: 5000
+
+    ChatResponse:
+      type: object
+      required:
+        - response
+        - citations
+        - session_id
+        - timestamp
+      properties:
+        response:
+          type: string
+          description: Generated response from the chatbot
+          example: "Physical AI refers to artificial intelligence systems..."
+        citations:
+          type: array
+          description: Source references for the response
+          items:
+            $ref: '#/components/schemas/Citation'
+        session_id:
+          type: string
+          format: uuid
+          description: Session identifier (echoed back)
+        timestamp:
+          type: string
+          format: date-time
+          description: Response generation timestamp
+
+    Citation:
+      type: object
+      required:
+        - chapter_title
+        - section_title
+        - path
+        - snippet
+        - score
+      properties:
+        chapter_title:
+          type: string
+          description: Title of the source chapter
+          example: "Introduction to Physical AI"
+        section_title:
+          type: string
+          description: Title of the source section
+          example: "What is Physical AI?"
+        path:
+          type: string
+          description: URL path to the source section
+          example: "/docs/01-introduction/what-is-physical-ai"
+        snippet:
+          type: string
+          description: Relevant excerpt from the source (max 200 chars)
+          maxLength: 200
+          example: "Physical AI systems are designed to interact with..."
+        score:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 1
+          description: Relevance score (cosine similarity)
+          example: 0.89
+
+    SearchResponse:
+      type: object
+      required:
+        - results
+        - total
+        - query
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/SearchResult'
+        total:
+          type: integer
+          description: Total number of results found
+          example: 15
+        query:
+          type: string
+          description: Original search query (echoed back)
+          example: "humanoid kinematics"
+
+    SearchResult:
+      type: object
+      required:
+        - chapter_id
+        - chapter_title
+        - section_id
+        - section_title
+        - path
+        - snippet
+        - score
+      properties:
+        chapter_id:
+          type: string
+          example: "02-humanoid-robotics"
+        chapter_title:
+          type: string
+          example: "Basics of Humanoid Robotics"
+        section_id:
+          type: string
+          example: "kinematics"
+        section_title:
+          type: string
+          example: "Humanoid Kinematics"
+        path:
+          type: string
+          example: "/docs/02-humanoid-robotics/kinematics"
+        snippet:
+          type: string
+          description: Content excerpt with search term highlighted
+          example: "...the <mark>kinematics</mark> of humanoid robots involves..."
+        score:
+          type: number
+          format: float
+          example: 0.92
+
+    HealthResponse:
+      type: object
+      required:
+        - status
+        - timestamp
+      properties:
+        status:
+          type: string
+          enum: [healthy, degraded, unhealthy]
+          example: "healthy"
+        timestamp:
+          type: string
+          format: date-time
+        services:
+          type: object
+          properties:
+            qdrant:
+              type: string
+              enum: [connected, disconnected]
+            gemini:
+              type: string
+              enum: [available, unavailable]
+            embeddings:
+              type: string
+              enum: [available, unavailable]
+
+    ErrorResponse:
+      type: object
+      required:
+        - error
+        - message
+        - timestamp
+      properties:
+        error:
+          type: string
+          description: Error code
+          example: "rate_limit_exceeded"
+        message:
+          type: string
+          description: Human-readable error message
+          example: "Too many requests. Please try again in 60 seconds."
+        timestamp:
+          type: string
+          format: date-time
+        details:
+          type: object
+          description: Additional error context
+          additionalProperties: true
+
+  securitySchemes:
+    # No authentication required per spec
+    {}
+
+security: []

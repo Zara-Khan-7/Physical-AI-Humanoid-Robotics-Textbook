@@ -1,0 +1,14 @@
+{
+  "title": {
+    "message": "فزیکل اے آئی ٹیکسٹ بک",
+    "description": "The title in the navbar"
+  },
+  "item.label.Docs": {
+    "message": "دستاویزات",
+    "description": "Navbar item with label Docs"
+  },
+  "item.label.GitHub": {
+    "message": "گِٹ ہب",
+    "description": "Navbar item with label GitHub"
+  }
+}

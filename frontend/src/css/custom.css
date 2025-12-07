@@ -1,0 +1,199 @@
+/**
+ * Custom styles for the Physical AI Textbook.
+ */
+
+/* Color palette */
+:root {
+  --ifm-color-primary: #3578e5;
+  --ifm-color-primary-dark: #1d68e1;
+  --ifm-color-primary-darker: #1b62d4;
+  --ifm-color-primary-darkest: #1651af;
+  --ifm-color-primary-light: #4e89e8;
+  --ifm-color-primary-lighter: #5a91ea;
+  --ifm-color-primary-lightest: #80aaef;
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+}
+
+/* Dark mode colors */
+[data-theme='dark'] {
+  --ifm-color-primary: #4e89e8;
+  --ifm-color-primary-dark: #2c72e4;
+  --ifm-color-primary-darker: #1d68e1;
+  --ifm-color-primary-darkest: #1651af;
+  --ifm-color-primary-light: #6f9eec;
+  --ifm-color-primary-lighter: #80aaef;
+  --ifm-color-primary-lightest: #b3cbf5;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+}
+
+/* Typography improvements */
+.markdown h1:first-child {
+  font-size: 2.5rem;
+}
+
+.markdown h2 {
+  margin-top: 2rem;
+}
+
+/* Table improvements */
+table {
+  display: table;
+  width: 100%;
+}
+
+table th {
+  background-color: var(--ifm-color-emphasis-100);
+}
+
+[data-theme='dark'] table th {
+  background-color: var(--ifm-color-emphasis-200);
+}
+
+/* Code blocks */
+.prism-code {
+  font-size: 0.9rem;
+}
+
+/* Math equations */
+.katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 1rem 0;
+}
+
+/* Admonitions (callouts) */
+.alert {
+  margin-bottom: 1rem;
+}
+
+/* RTL support for Urdu */
+html[lang='ur'] {
+  direction: rtl;
+}
+
+html[lang='ur'] .navbar__items {
+  flex-direction: row-reverse;
+}
+
+html[lang='ur'] .table-of-contents {
+  text-align: right;
+}
+
+html[lang='ur'] .markdown ul,
+html[lang='ur'] .markdown ol {
+  padding-right: 2rem;
+  padding-left: 0;
+}
+
+/* Sidebar styling */
+.theme-doc-sidebar-menu {
+  font-size: 0.95rem;
+}
+
+/* Footer */
+.footer {
+  background-color: var(--ifm-color-emphasis-100);
+}
+
+[data-theme='dark'] .footer {
+  background-color: var(--ifm-color-emphasis-200);
+}
+
+/* Print styles */
+@media print {
+  .navbar,
+  .theme-doc-sidebar-container,
+  .chatbot-container,
+  .pagination-nav {
+    display: none !important;
+  }
+
+  .main-wrapper {
+    padding: 0;
+  }
+
+  .markdown {
+    max-width: 100%;
+  }
+}
+
+/* Mobile improvements */
+@media (max-width: 996px) {
+  .markdown h1:first-child {
+    font-size: 2rem;
+  }
+}
+
+/* Animation for page transitions */
+.theme-doc-markdown {
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Search highlighting */
+.search-result-match {
+  background-color: rgba(53, 120, 229, 0.2);
+  padding: 0 2px;
+  border-radius: 2px;
+}
+
+/* Image styling */
+.markdown img {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme='dark'] .markdown img {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Blockquote styling */
+blockquote {
+  border-left: 4px solid var(--ifm-color-primary);
+  background-color: var(--ifm-color-emphasis-100);
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: 0 8px 8px 0;
+}
+
+[data-theme='dark'] blockquote {
+  background-color: var(--ifm-color-emphasis-200);
+}
+
+/* Definition lists */
+dl {
+  margin: 1rem 0;
+}
+
+dt {
+  font-weight: bold;
+  margin-top: 1rem;
+}
+
+dd {
+  margin-left: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Review questions styling */
+.markdown ol:last-child {
+  background-color: var(--ifm-color-emphasis-100);
+  padding: 1rem 1rem 1rem 2.5rem;
+  border-radius: 8px;
+  margin-top: 2rem;
+}
+
+[data-theme='dark'] .markdown ol:last-child {
+  background-color: var(--ifm-color-emphasis-200);
+}

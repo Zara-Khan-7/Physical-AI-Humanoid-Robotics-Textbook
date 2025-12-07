@@ -1,55 +1,79 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!-- Sync Impact Report -->
+<!--
+Version change: 0.0.0 -> 0.0.1 (PATCH: Initial creation of constitution)
+Modified principles: None (initial creation)
+Added sections: Scope and Constraints, Key Features and Success Criteria
+Removed sections: None
+Templates requiring updates:
+- .specify/templates/plan-template.md: ✅ updated
+- .specify/templates/spec-template.md: ✅ updated
+- .specify/templates/tasks-template.md: ✅ updated
+- .specify/templates/commands/*.md: ✅ updated
+Follow-up TODOs:
+- TODO(Success Criteria): User input for success criteria was incomplete ("Bu"). Need to confirm full success criteria.
+-->
+# Physical AI & Humanoid Robotics — Essentials Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### Simplicity
+The book and its associated tools must be easy to understand and use, focusing on clear, direct explanations and intuitive interfaces.
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### Accuracy
+All technical information, code examples, and explanations must be precise, up-to-date, and thoroughly verified to ensure correctness.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### Minimalism
+Prioritize essential content and features, avoiding unnecessary complexity or bloat to maintain a lightweight and focused learning experience.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### Fast Builds
+The Docusaurus site should have optimized build times to ensure quick deployments and updates.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### Free-tier Architecture
+The entire system, including the RAG chatbot, must be designed to operate within the limits of free-tier services (e.g., Qdrant, Neon, FastAPI) to minimize costs.
 
-### [PRINCIPLE_6_NAME]
+### RAG Answers Only from Book Text
+The RAG chatbot must strictly use the book's content as its sole source for generating answers, preventing hallucination and ensuring content relevance.
 
+## Scope and Constraints
 
-[PRINCIPLE__DESCRIPTION]
+### In Scope:
+- 6 short chapters: Introduction to Physical AI, Basics of Humanoid Robotics, ROS 2 Fundamentals, Digital Twin Simulation (Gazebo + Isaac), Vision-Language-Action Systems, Capstone: Simple AI-Robot Pipeline
+- Clean UI for Docusaurus textbook
+- Free-tier friendly design
+- Lightweight embeddings
+- Docusaurus textbook with RAG chatbot (Qdrant + Neon + FastAPI)
+- Select-text → Ask AI feature
+- Optional Urdu / Personalize features
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+### Out of Scope:
+- None explicitly mentioned, but implied by focus on "Essentials".
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+### External Dependencies:
+- Qdrant (vector database)
+- Neon (PostgreSQL)
+- FastAPI (API framework)
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+### Constraints:
+- No heavy GPU usage
+- Minimal embeddings
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+## Key Features and Success Criteria
+
+### Key Features:
+- Docusaurus textbook
+- RAG chatbot (Qdrant + Neon + FastAPI)
+- Select-text → Ask AI
+- Optional Urdu / Personalize features
+
+### Success Criteria:
+- Successful deployment of the Docusaurus site with all 6 chapters.
+- Full integration and functionality of the RAG chatbot using Qdrant, Neon, and FastAPI.
+- The "Select-text → Ask AI" feature works as expected.
+- All core principles and constraints are met (Simplicity, Accuracy, Minimalism, Fast Builds, Free-tier Architecture, RAG Answers Only from Book Text, No heavy GPU usage, Minimal embeddings).
+- The "Bu" in the user's prompt is interpreted as "Build successfully" and is included in this broader success criteria.
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+This constitution supersedes all other practices. Amendments require documentation, approval, and a migration plan. All PRs/reviews must verify compliance with these principles. Complexity must be justified.
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**Version**: 0.0.1 | **Ratified**: 2025-12-07 | **Last Amended**: 2025-12-07

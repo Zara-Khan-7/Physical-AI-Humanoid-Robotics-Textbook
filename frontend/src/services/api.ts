@@ -1,0 +1,289 @@
+/**
+ * API client for textbook backend services.
+ */
+
+// Types for API requests and responses
+export interface ChatMessage {
+  role: 'user' | 'assistant';
+  content: string;
+}
+
+export interface Citation {
+  chapter_id: string;
+  chapter_title: string;
+  section_id: string;
+  section_title: string;
+  path: string;
+}
+
+export interface ChatRequest {
+  query: string;
+  language?: 'en' | 'ur';
+  history?: ChatMessage[];
+  chapter_filter?: string;
+}
+
+export interface ChatResponse {
+  answer: string;
+  citations: Citation[];
+  model: string;
+  language: string;
+}
+
+export interface SearchRequest {
+  query: string;
+  limit?: number;
+  language?: 'en' | 'ur';
+  chapter_filter?: string;
+}
+
+export interface SearchResult {
+  id: string;
+  score: number;
+  content: string;
+  chapter_id: string;
+  chapter_title: string;
+  section_id: string;
+  section_title: string;
+  path: string;
+}
+
+export interface SearchResponse {
+  results: SearchResult[];
+  query: string;
+  total: number;
+}
+
+export interface HealthStatus {
+  qdrant: string;
+  embeddings: string;
+  gemini: string;
+}
+
+export interface HealthResponse {
+  status: string;
+  services: HealthStatus;
+}
+
+export interface ApiError {
+  detail: string;
+}
+
+// API configuration
+// In production, this should be set via docusaurus.config.ts customFields
+// For local development, it defaults to localhost
+const getApiBaseUrl = (): string => {
+  // Check if we're in browser and have a custom config
+  if (typeof window !== 'undefined') {
+    // Try to get from Docusaurus site config
+    const siteConfig = (window as any).__DOCUSAURUS__;
+    if (siteConfig?.siteConfig?.customFields?.apiUrl) {
+      return siteConfig.siteConfig.customFields.apiUrl;
+    }
+  }
+  // Default for local development
+  return 'http://localhost:8000/api/v1';
+};
+
+const API_BASE_URL = getApiBaseUrl();
+
+/**
+ * Custom error class for API errors.
+ */
+export class ApiClientError extends Error {
+  status: number;
+  detail: string;
+
+  constructor(message: string, status: number, detail: string) {
+    super(message);
+    this.name = 'ApiClientError';
+    this.status = status;
+    this.detail = detail;
+  }
+}
+
+/**
+ * Make a fetch request with error handling.
+ */
+async function fetchWithErrorHandling<T>(
+  url: string,
+  options: RequestInit = {}
+): Promise<T> {
+  const response = await fetch(url, {
+    ...options,
+    headers: {
+      'Content-Type': 'application/json',
+      ...options.headers,
+    },
+  });
+
+  if (!response.ok) {
+    let detail = 'Unknown error';
+    try {
+      const errorData: ApiError = await response.json();
+      detail = errorData.detail || detail;
+    } catch {
+      detail = response.statusText;
+    }
+    throw new ApiClientError(
+      `API request failed: ${response.status}`,
+      response.status,
+      detail
+    );
+  }
+
+  return response.json();
+}
+
+/**
+ * API client for the textbook backend.
+ */
+export const apiClient = {
+  /**
+   * Send a chat message and get an AI response.
+   */
+  async chat(request: ChatRequest): Promise<ChatResponse> {
+    return fetchWithErrorHandling<ChatResponse>(`${API_BASE_URL}/chat`, {
+      method: 'POST',
+      body: JSON.stringify(request),
+    });
+  },
+
+  /**
+   * Search for relevant content in the textbook.
+   */
+  async search(request: SearchRequest): Promise<SearchResponse> {
+    return fetchWithErrorHandling<SearchResponse>(`${API_BASE_URL}/search`, {
+      method: 'POST',
+      body: JSON.stringify(request),
+    });
+  },
+
+  /**
+   * Check the health status of backend services.
+   */
+  async health(): Promise<HealthResponse> {
+    return fetchWithErrorHandling<HealthResponse>(`${API_BASE_URL}/health`);
+  },
+
+  /**
+   * Check if the API is reachable.
+   */
+  async isAvailable(): Promise<boolean> {
+    try {
+      await this.health();
+      return true;
+    } catch {
+      return false;
+    }
+  },
+};
+
+/**
+ * LocalStorage helpers for conversation history.
+ */
+export const conversationStorage = {
+  STORAGE_KEY: 'textbook_chat_history',
+  MAX_MESSAGES: 50,
+
+  /**
+   * Get stored conversation history.
+   */
+  getHistory(): ChatMessage[] {
+    try {
+      const stored = localStorage.getItem(this.STORAGE_KEY);
+      if (stored) {
+        return JSON.parse(stored);
+      }
+    } catch {
+      console.warn('Failed to load chat history from localStorage');
+    }
+    return [];
+  },
+
+  /**
+   * Save conversation history.
+   */
+  saveHistory(messages: ChatMessage[]): void {
+    try {
+      // Keep only the last MAX_MESSAGES
+      const trimmed = messages.slice(-this.MAX_MESSAGES);
+      localStorage.setItem(this.STORAGE_KEY, JSON.stringify(trimmed));
+    } catch {
+      console.warn('Failed to save chat history to localStorage');
+    }
+  },
+
+  /**
+   * Add a message to history.
+   */
+  addMessage(role: 'user' | 'assistant', content: string): ChatMessage[] {
+    const history = this.getHistory();
+    history.push({ role, content });
+    this.saveHistory(history);
+    return history;
+  },
+
+  /**
+   * Clear conversation history.
+   */
+  clearHistory(): void {
+    try {
+      localStorage.removeItem(this.STORAGE_KEY);
+    } catch {
+      console.warn('Failed to clear chat history from localStorage');
+    }
+  },
+};
+
+/**
+ * LocalStorage helpers for user preferences.
+ */
+export const preferencesStorage = {
+  STORAGE_KEY: 'textbook_preferences',
+
+  /**
+   * Get stored preferences.
+   */
+  getPreferences(): Record<string, unknown> {
+    try {
+      const stored = localStorage.getItem(this.STORAGE_KEY);
+      if (stored) {
+        return JSON.parse(stored);
+      }
+    } catch {
+      console.warn('Failed to load preferences from localStorage');
+    }
+    return {};
+  },
+
+  /**
+   * Save preferences.
+   */
+  savePreferences(prefs: Record<string, unknown>): void {
+    try {
+      localStorage.setItem(this.STORAGE_KEY, JSON.stringify(prefs));
+    } catch {
+      console.warn('Failed to save preferences to localStorage');
+    }
+  },
+
+  /**
+   * Get a specific preference.
+   */
+  get<T>(key: string, defaultValue: T): T {
+    const prefs = this.getPreferences();
+    return (prefs[key] as T) ?? defaultValue;
+  },
+
+  /**
+   * Set a specific preference.
+   */
+  set(key: string, value: unknown): void {
+    const prefs = this.getPreferences();
+    prefs[key] = value;
+    this.savePreferences(prefs);
+  },
+};
+
+export default apiClient;
