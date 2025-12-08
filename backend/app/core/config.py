@@ -31,7 +31,7 @@ class Settings(BaseSettings):
     port: int = 8000
 
     # CORS - Frontend URLs (comma-separated)
-    cors_origins: str = "http://localhost:3000,http://localhost:3001"
+    cors_origins: str = "http://localhost:3000,http://localhost:3001,https://frontend-hr4ggbpzj-zara-yousuf-khans-projects.vercel.app,https://physical-ai-textbook.vercel.app"
 
     # Rate Limiting
     rate_limit_chat: str = "5/minute"
