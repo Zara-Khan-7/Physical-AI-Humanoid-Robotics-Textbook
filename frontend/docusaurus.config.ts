@@ -26,7 +26,7 @@ const config: Config = {
 
   // Custom fields for runtime configuration
   customFields: {
-    apiUrl: process.env.API_URL || 'http://localhost:8000/api/v1',
+    apiUrl: process.env.API_URL || 'https://zaraa7-physical-ai-textbook-api.hf.space/api/v1',
   },
 
   i18n: {
