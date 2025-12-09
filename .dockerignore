@@ -1,22 +1,26 @@
-# Ignore everything except backend
-*
-!backend/
-!backend/requirements.txt
-!backend/app/
-!backend/app/**
+# Virtual environments
+venv/
+.venv/
+__pycache__/
+*.pyc
 
-# Ignore Python cache
-**/__pycache__
-**/*.pyc
-**/*.pyo
+# Environment files
+.env
+.env.local
 
-# Ignore virtual environment
-backend/venv/
-backend/.env
+# IDE
+.idea/
+.vscode/
 
-# Ignore node modules
-frontend/
-*.md
+# Git
 .git/
+.gitignore
+
+# Frontend (not needed for backend deployment)
+frontend/
+
+# Other
+*.md
 .github/
 .specify/
+history/
