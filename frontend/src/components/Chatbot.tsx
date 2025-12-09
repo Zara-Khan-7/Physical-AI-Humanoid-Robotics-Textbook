@@ -129,8 +129,13 @@ export default function Chatbot({ language = 'en' }: ChatbotProps): JSX.Element 
         .filter(m => !m.isLoading && !m.error)
         .map(m => ({ role: m.role, content: m.content }));
 
+      // Generate session ID if not exists
+      const sessionId = sessionStorage.getItem('chat_session_id') || `session-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+      sessionStorage.setItem('chat_session_id', sessionId);
+
       const response = await apiClient.chat({
-        query: text.trim(),
+        message: text.trim(),
+        session_id: sessionId,
         language,
         history: history.slice(-10), // Last 10 messages for context
       });
