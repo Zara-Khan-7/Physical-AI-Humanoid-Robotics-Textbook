@@ -1,0 +1,22 @@
+# Ignore everything except backend
+*
+!backend/
+!backend/requirements.txt
+!backend/app/
+!backend/app/**
+
+# Ignore Python cache
+**/__pycache__
+**/*.pyc
+**/*.pyo
+
+# Ignore virtual environment
+backend/venv/
+backend/.env
+
+# Ignore node modules
+frontend/
+*.md
+.git/
+.github/
+.specify/
