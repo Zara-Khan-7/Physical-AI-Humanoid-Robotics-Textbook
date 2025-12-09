@@ -17,10 +17,11 @@ export interface Citation {
 }
 
 export interface ChatRequest {
-  query: string;
+  message: string;
+  session_id: string;
   language?: 'en' | 'ur';
   history?: ChatMessage[];
-  chapter_filter?: string;
+  context?: string;
 }
 
 export interface ChatResponse {
