@@ -107,7 +107,7 @@ const config: Config = {
           position: 'right',
         },
         {
-          href: 'https://github.com/your-org/physical-ai-textbook',
+          href: 'https://github.com/Zara-Khan-7/Physical-AI-Humanoid-Robotics-Textbook',
           label: 'GitHub',
           position: 'right',
         },
@@ -155,7 +155,7 @@ const config: Config = {
           items: [
             {
               label: 'GitHub',
-              href: 'https://github.com/your-org/physical-ai-textbook',
+              href: 'https://github.com/Zara-Khan-7/Physical-AI-Humanoid-Robotics-Textbook',
             },
           ],
         },
