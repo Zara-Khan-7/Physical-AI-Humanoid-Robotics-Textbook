@@ -1,6 +1,6 @@
 """Chat endpoint for RAG-based Q&A."""
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Request
 from slowapi import Limiter
 from slowapi.util import get_remote_address
 
@@ -22,7 +22,8 @@ limiter = Limiter(key_func=get_remote_address)
 @router.post("/chat", response_model=ChatResponse)
 @limiter.limit("5/minute")
 async def chat(
-    request: ChatRequest,
+    request: Request,
+    chat_request: ChatRequest,
     embedding_service: EmbeddingService = Depends(get_embedding_service),
     vector_store: VectorStoreService = Depends(get_vector_store),
     llm_service: LLMService = Depends(get_llm_service),
@@ -52,22 +53,21 @@ async def chat(
 
     try:
         # Generate query embedding
-        query_vector = await embedding_service.embed_query(request.query)
+        query_vector = await embedding_service.embed_query(chat_request.message)
 
         # Search for relevant context
         search_results = await vector_store.search(
             query_vector=query_vector,
             limit=5,
-            chapter_filter=request.chapter_filter,
-            language_filter=request.language,
+            language_filter=chat_request.language,
         )
 
         # Generate response with context
         answer = await llm_service.generate_response(
-            query=request.query,
+            query=chat_request.message,
             context_docs=search_results,
-            history=request.history,
-            language=request.language,
+            history=chat_request.history,
+            language=chat_request.language,
         )
 
         # Extract citations from search results
@@ -96,7 +96,7 @@ async def chat(
             answer=answer,
             citations=unique_citations,
             model=llm_service.model_name,
-            language=request.language,
+            language=chat_request.language,
         )
 
     except ValueError as e:

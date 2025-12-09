@@ -9,6 +9,7 @@ from qdrant_client.models import (
     Filter,
     FieldCondition,
     MatchValue,
+    PayloadSchemaType,
 )
 import uuid
 
@@ -61,6 +62,17 @@ class VectorStoreService:
                     size=self.vector_size,
                     distance=Distance.COSINE,
                 ),
+            )
+            # Create payload indexes for filtering
+            self.client.create_payload_index(
+                collection_name=self.collection_name,
+                field_name="chapter_id",
+                field_schema=PayloadSchemaType.KEYWORD,
+            )
+            self.client.create_payload_index(
+                collection_name=self.collection_name,
+                field_name="language",
+                field_schema=PayloadSchemaType.KEYWORD,
             )
 
     async def upsert_chunks(
@@ -131,13 +143,13 @@ class VectorStoreService:
 
         search_filter = Filter(must=filter_conditions) if filter_conditions else None
 
-        results = self.client.search(
+        results = self.client.query_points(
             collection_name=self.collection_name,
-            query_vector=query_vector,
+            query=query_vector,
             limit=limit,
             query_filter=search_filter,
             with_payload=True,
-        )
+        ).points
 
         return [
             {

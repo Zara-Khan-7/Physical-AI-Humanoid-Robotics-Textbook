@@ -24,7 +24,7 @@ class Settings(BaseSettings):
     # Model Configuration
     embedding_model: str = "models/text-embedding-004"
     embedding_dim: int = 768
-    llm_model: str = "gemini-2.0-flash-001"
+    llm_model: str = "models/gemini-flash-latest"
 
     # Server Configuration
     host: str = "0.0.0.0"
