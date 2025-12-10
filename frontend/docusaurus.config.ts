@@ -12,7 +12,7 @@ const config: Config = {
   // Production URL - set via environment variable for different deployments
   // For Vercel: https://your-project.vercel.app
   // For GitHub Pages: https://<username>.github.io
-  url: process.env.SITE_URL || 'https://physical-ai-textbook.vercel.app',
+  url: process.env.SITE_URL || 'https://physical-ai-humanoid-robotics-textb-kappa.vercel.app/',
   // Base URL - '/' for Vercel, '/<projectName>/' for GitHub Pages
   baseUrl: process.env.BASE_URL || '/',
 
@@ -109,7 +109,7 @@ const config: Config = {
           position: 'right',
         },
         {
-          href: 'https://github.com/Zara-Khan-7/Physical-AI-Humanoid-Robotics-Textbook',
+          href: 'https://github.com/Rabeeka10/Physical-AI-Humanoid-Robotics-Textbook',
           label: 'GitHub',
           position: 'right',
         },
