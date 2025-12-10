@@ -157,7 +157,7 @@ const config: Config = {
           items: [
             {
               label: 'GitHub',
-              href: 'https://github.com/Zara-Khan-7/Physical-AI-Humanoid-Robotics-Textbook',
+              href: 'https://github.com/Rabeeka10/Physical-AI-Humanoid-Robotics-Textbook',
             },
           ],
         },
