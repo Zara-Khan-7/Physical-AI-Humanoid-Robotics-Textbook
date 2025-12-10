@@ -20,5 +20,11 @@ services:
       - key: QDRANT_API_KEY
         sync: false
       - key: CORS_ORIGINS
-        value: https://your-username.github.io
+        value: http://localhost:3000,http://localhost:3001,https://frontend-hr4ggbpzj-zara-yousuf-khans-projects.vercel.app,https://physical-ai-textbook.vercel.app
+      - key: LLM_MODEL
+        value: models/gemini-flash-latest
+      - key: EMBEDDING_MODEL
+        value: models/text-embedding-004
+      - key: QDRANT_COLLECTION
+        value: textbook_chunks
     autoDeploy: true

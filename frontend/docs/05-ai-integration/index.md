@@ -1,5 +1,6 @@
 ---
 sidebar_position: 5
+slug: /ai-integration
 title: AI Integration
 description: How artificial intelligence is integrated into humanoid robots
 ---

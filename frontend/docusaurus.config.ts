@@ -9,14 +9,14 @@ const config: Config = {
   tagline: 'Essentials for the AI-Native Era',
   favicon: 'img/favicon.ico',
 
-  // Set the production url of your site here
+  // Production URL - set via environment variable for different deployments
+  // For Vercel: https://your-project.vercel.app
   // For GitHub Pages: https://<username>.github.io
-  url: process.env.SITE_URL || 'https://Zara-Khan-7.github.io',
-  // Set the /<baseUrl>/ pathname under which your site is served
-  // For GitHub Pages it is often '/<projectName>/'
-  baseUrl: process.env.BASE_URL || '/Physical-AI-Humanoid-Robotics-Textbook/',
+  url: process.env.SITE_URL || 'https://physical-ai-textbook.vercel.app',
+  // Base URL - '/' for Vercel, '/<projectName>/' for GitHub Pages
+  baseUrl: process.env.BASE_URL || '/',
 
-  // GitHub pages deployment config
+  // GitHub pages deployment config (used when deploying to GitHub Pages)
   organizationName: process.env.ORG_NAME || 'Zara-Khan-7',
   projectName: process.env.PROJECT_NAME || 'Physical-AI-Humanoid-Robotics-Textbook',
   trailingSlash: false,
@@ -26,7 +26,7 @@ const config: Config = {
 
   // Custom fields for runtime configuration
   customFields: {
-    apiUrl: process.env.API_URL || 'http://localhost:8000/api/v1',
+    apiUrl: process.env.API_URL || 'https://zaraa7-physical-ai-textbook-api.hf.space/api/v1',
   },
 
   i18n: {
@@ -50,16 +50,18 @@ const config: Config = {
       {
         docs: {
           sidebarPath: './sidebars.ts',
-          routeBasePath: '/',
+          routeBasePath: 'docs',
           remarkPlugins: [remarkMath],
           rehypePlugins: [rehypeKatex],
-          showLastUpdateTime: true,
+          showLastUpdateTime: false,
         },
         blog: false,
         theme: {
           customCss: [
             './src/css/custom.css',
             './src/css/chatbot.css',
+            './src/css/auth.css',
+            './src/css/chapter-actions.css',
           ],
         },
       } satisfies Preset.Options,
@@ -107,7 +109,7 @@ const config: Config = {
           position: 'right',
         },
         {
-          href: 'https://github.com/your-org/physical-ai-textbook',
+          href: 'https://github.com/Zara-Khan-7/Physical-AI-Humanoid-Robotics-Textbook',
           label: 'GitHub',
           position: 'right',
         },
@@ -121,15 +123,15 @@ const config: Config = {
           items: [
             {
               label: 'Introduction',
-              to: '/intro',
+              to: '/docs/intro',
             },
             {
               label: 'Foundations',
-              to: '/foundations',
+              to: '/docs/foundations',
             },
             {
               label: 'Sensors',
-              to: '/sensors',
+              to: '/docs/sensors',
             },
           ],
         },
@@ -138,15 +140,15 @@ const config: Config = {
           items: [
             {
               label: 'Actuators',
-              to: '/actuators',
+              to: '/docs/actuators',
             },
             {
               label: 'AI Integration',
-              to: '/ai-integration',
+              to: '/docs/ai-integration',
             },
             {
               label: 'Applications',
-              to: '/applications',
+              to: '/docs/applications',
             },
           ],
         },
@@ -155,7 +157,7 @@ const config: Config = {
           items: [
             {
               label: 'GitHub',
-              href: 'https://github.com/your-org/physical-ai-textbook',
+              href: 'https://github.com/Zara-Khan-7/Physical-AI-Humanoid-Robotics-Textbook',
             },
           ],
         },

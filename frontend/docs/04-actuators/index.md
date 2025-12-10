@@ -1,5 +1,6 @@
 ---
 sidebar_position: 4
+slug: /actuators
 title: Actuators and Movement
 description: Understanding how robots generate motion through actuators
 ---

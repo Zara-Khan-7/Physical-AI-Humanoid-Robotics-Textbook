@@ -6,7 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.core.config import get_settings
 from app.core.rate_limiter import limiter
-from app.api.routes import health, chat, search
+from app.api.routes import health, chat, search, auth
 
 
 @asynccontextmanager
@@ -48,6 +48,7 @@ def create_app() -> FastAPI:
     app.include_router(health.router, prefix="/api/v1", tags=["Health"])
     app.include_router(chat.router, prefix="/api/v1", tags=["Chat"])
     app.include_router(search.router, prefix="/api/v1", tags=["Search"])
+    app.include_router(auth.router, prefix="/api/v1", tags=["Auth"])
 
     return app
 

@@ -1,5 +1,6 @@
 ---
 sidebar_position: 1
+slug: /intro
 title: Introduction to Physical AI
 description: An introduction to Physical AI and its role in humanoid robotics
 ---

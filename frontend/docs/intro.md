@@ -13,22 +13,22 @@ Welcome to this comprehensive textbook on Physical AI and Humanoid Robotics. Thi
 
 This textbook covers the essential concepts and technologies that enable humanoid robots to perceive, think, and act in the physical world:
 
-### [Chapter 1: Introduction to Physical AI](/intro)
+### [Chapter 1: Introduction to Physical AI](/docs/intro)
 An introduction to Physical AI, its history, and why humanoid robots matter. Learn about the unique challenges of building AI systems that interact with the physical world.
 
-### [Chapter 2: Foundations of Humanoid Robotics](/foundations)
+### [Chapter 2: Foundations of Humanoid Robotics](/docs/foundations)
 Core concepts including kinematics, dynamics, and control theory. Understand the mathematical and engineering principles that make robot motion possible.
 
-### [Chapter 3: Sensors and Perception](/sensors)
+### [Chapter 3: Sensors and Perception](/docs/sensors)
 How robots sense their environment through cameras, LiDAR, force sensors, and more. Learn about sensor fusion and computer vision for robotics.
 
-### [Chapter 4: Actuators and Movement](/actuators)
+### [Chapter 4: Actuators and Movement](/docs/actuators)
 From electric motors to artificial muscles—understanding how robots generate motion. Explore transmission systems, motion control, and energy management.
 
-### [Chapter 5: AI Integration](/ai-integration)
+### [Chapter 5: AI Integration](/docs/ai-integration)
 Machine learning, deep learning, and reinforcement learning applied to robotics. Discover how modern AI enables robot learning and decision-making.
 
-### [Chapter 6: Applications and Future](/applications)
+### [Chapter 6: Applications and Future](/docs/applications)
 Real-world applications in manufacturing, healthcare, and services. Explore the future of humanoid robotics and its societal implications.
 
 ## How to Use This Textbook
@@ -69,7 +69,7 @@ Don't worry if you're not an expert—concepts are explained from the ground up.
 
 ## Getting Started
 
-We recommend starting with [Chapter 1: Introduction to Physical AI](/intro) to understand the context and motivation for humanoid robotics.
+We recommend starting with [Chapter 1: Introduction to Physical AI](/docs/intro) to understand the context and motivation for humanoid robotics.
 
 If you have specific interests:
 - **Engineers**: Focus on Chapters 2-4 for technical foundations
@@ -83,4 +83,4 @@ This textbook was created as an AI-native educational resource, demonstrating ho
 
 ---
 
-Ready to begin? Start with [Introduction to Physical AI →](/intro)
+Ready to begin? Start with [Introduction to Physical AI →](/docs/intro)

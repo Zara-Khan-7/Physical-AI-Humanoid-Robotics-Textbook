@@ -1,5 +1,6 @@
 ---
 sidebar_position: 3
+slug: /sensors
 title: Sensors and Perception
 description: Understanding how robots sense and perceive their environment
 ---

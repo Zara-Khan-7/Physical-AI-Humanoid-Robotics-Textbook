@@ -150,6 +150,11 @@ async def main():
 
     print("Services initialized successfully")
 
+    # Ensure collection exists before any operations
+    print("Ensuring collection exists...")
+    await vector_store.ensure_collection()
+    print("Collection ready")
+
     # Define content paths (relative to frontend/docs)
     frontend_path = Path(__file__).parent.parent.parent / "frontend"
     docs_path = frontend_path / "docs"
@@ -173,8 +178,6 @@ async def main():
         chapter_path = docs_path / chapter_id
         if chapter_path.exists():
             print(f"\nChapter: {chapter_title}")
-            # Delete existing chapter data first
-            await vector_store.delete_by_chapter(f"{chapter_id}-en")
             count = await index_chapter(
                 chapter_path=chapter_path,
                 chapter_id=f"{chapter_id}-en",
@@ -194,8 +197,6 @@ async def main():
         chapter_path = i18n_path / chapter_id
         if chapter_path.exists():
             print(f"\nChapter: {chapter_title} (Urdu)")
-            # Delete existing chapter data first
-            await vector_store.delete_by_chapter(f"{chapter_id}-ur")
             count = await index_chapter(
                 chapter_path=chapter_path,
                 chapter_id=f"{chapter_id}-ur",

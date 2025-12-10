@@ -24,14 +24,14 @@ class Settings(BaseSettings):
     # Model Configuration
     embedding_model: str = "models/text-embedding-004"
     embedding_dim: int = 768
-    llm_model: str = "gemini-2.0-flash-001"
+    llm_model: str = "models/gemini-flash-latest"
 
     # Server Configuration
     host: str = "0.0.0.0"
     port: int = 8000
 
     # CORS - Frontend URLs (comma-separated)
-    cors_origins: str = "http://localhost:3000,http://localhost:3001"
+    cors_origins: str = "http://localhost:3000,http://localhost:3001,https://frontend-hr4ggbpzj-zara-yousuf-khans-projects.vercel.app,https://physical-ai-textbook.vercel.app"
 
     # Rate Limiting
     rate_limit_chat: str = "5/minute"
