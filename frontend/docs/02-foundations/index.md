@@ -1,5 +1,6 @@
 ---
 sidebar_position: 2
+slug: /foundations
 title: Foundations of Humanoid Robotics
 description: Core concepts in humanoid robot design and control
 ---

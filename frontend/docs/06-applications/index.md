@@ -1,5 +1,6 @@
 ---
 sidebar_position: 6
+slug: /applications
 title: Applications and Future
 description: Real-world applications and future directions of humanoid robotics
 ---
