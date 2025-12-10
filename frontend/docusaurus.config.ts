@@ -50,7 +50,7 @@ const config: Config = {
       {
         docs: {
           sidebarPath: './sidebars.ts',
-          routeBasePath: '/',
+          routeBasePath: 'docs',
           remarkPlugins: [remarkMath],
           rehypePlugins: [rehypeKatex],
           showLastUpdateTime: false,
@@ -121,15 +121,15 @@ const config: Config = {
           items: [
             {
               label: 'Introduction',
-              to: '/intro',
+              to: '/docs/intro',
             },
             {
               label: 'Foundations',
-              to: '/foundations',
+              to: '/docs/foundations',
             },
             {
               label: 'Sensors',
-              to: '/sensors',
+              to: '/docs/sensors',
             },
           ],
         },
@@ -138,15 +138,15 @@ const config: Config = {
           items: [
             {
               label: 'Actuators',
-              to: '/actuators',
+              to: '/docs/actuators',
             },
             {
               label: 'AI Integration',
-              to: '/ai-integration',
+              to: '/docs/ai-integration',
             },
             {
               label: 'Applications',
-              to: '/applications',
+              to: '/docs/applications',
             },
           ],
         },

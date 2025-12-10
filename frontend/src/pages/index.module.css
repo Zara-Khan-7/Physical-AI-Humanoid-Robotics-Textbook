@@ -1,0 +1,143 @@
+.heroBanner {
+  padding: 4rem 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.heroBanner h1 {
+  font-size: 3rem;
+  color: white;
+}
+
+.heroBanner p {
+  font-size: 1.5rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.buttons .button {
+  background: white;
+  color: #667eea;
+  border: none;
+  font-weight: 600;
+}
+
+.buttons .button:hover {
+  background: #f0f0f0;
+  color: #764ba2;
+}
+
+.features {
+  padding: 4rem 0;
+  background: var(--ifm-background-color);
+}
+
+.sectionTitle {
+  text-align: center;
+  margin-bottom: 3rem;
+  font-size: 2.5rem;
+  color: var(--ifm-heading-color);
+}
+
+.featureCard {
+  background: var(--ifm-card-background-color);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+  height: 100%;
+}
+
+.featureCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.featureCard h3 {
+  margin-bottom: 0.75rem;
+  color: var(--ifm-color-primary);
+}
+
+.featureCard h3 a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.featureCard h3 a:hover {
+  text-decoration: underline;
+}
+
+.featureCard p {
+  color: var(--ifm-color-content-secondary);
+  margin: 0;
+  line-height: 1.6;
+}
+
+.chatbotSection {
+  padding: 4rem 0;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  text-align: center;
+}
+
+[data-theme='dark'] .chatbotSection {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+}
+
+.chatbotDescription {
+  font-size: 1.2rem;
+  max-width: 800px;
+  margin: 0 auto 2rem;
+  color: var(--ifm-color-content);
+}
+
+.chatbotFeatures {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.chatbotFeature {
+  background: var(--ifm-card-background-color);
+  padding: 1.5rem;
+  border-radius: 12px;
+  min-width: 200px;
+  max-width: 280px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.chatbotFeature strong {
+  display: block;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  color: var(--ifm-color-primary);
+}
+
+.chatbotFeature p {
+  margin: 0;
+  color: var(--ifm-color-content-secondary);
+}
+
+@media screen and (max-width: 996px) {
+  .heroBanner h1 {
+    font-size: 2rem;
+  }
+
+  .heroBanner p {
+    font-size: 1.2rem;
+  }
+
+  .chatbotFeatures {
+    flex-direction: column;
+    align-items: center;
+  }
+}
