@@ -101,20 +101,21 @@ Be concise and practical. Provide:
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          message: `Please translate the following chapter summary into Urdu. Provide a clear, educational translation that maintains technical accuracy while being accessible to Urdu-speaking students.
+          message: `آپ ایک ماہر اردو مترجم اور ٹیکنیکل رائٹر ہیں۔ براہ کرم اس باب کا اردو میں تفصیلی ترجمہ کریں۔
 
-Chapter: ${chapterTitle}
+باب کا عنوان: ${chapterTitle}
 
-Provide:
-1. Chapter title in Urdu
-2. A comprehensive summary of key concepts in Urdu (about 300-400 words)
-3. Key terms with both English and Urdu versions
-4. Study tips in Urdu
+ترجمے کی ہدایات:
+1. باب کا عنوان اردو میں لکھیں
+2. اہم تصورات کا خلاصہ اردو میں لکھیں (تقریباً 400-500 الفاظ)
+3. اہم ٹیکنیکل اصطلاحات کو انگریزی اور اردو دونوں میں لکھیں
+4. مطالعے کی تجاویز اردو میں دیں
+5. سادہ اور آسان اردو استعمال کریں جو طلباء کے لیے سمجھنا آسان ہو
 
-Make sure the translation is natural and educational.`,
+Please respond entirely in Urdu script. Use proper Urdu grammar and sentence structure. Keep technical terms in English with Urdu transliteration where helpful.`,
           session_id: `translate-${chapterId}-${user?.id}`,
           language: 'ur',
-          context: pageContent.slice(0, 2000),
+          context: pageContent.slice(0, 3000),
         }),
       });
 
