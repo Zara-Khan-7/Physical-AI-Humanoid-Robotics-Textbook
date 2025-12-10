@@ -60,6 +60,8 @@ const config: Config = {
           customCss: [
             './src/css/custom.css',
             './src/css/chatbot.css',
+            './src/css/auth.css',
+            './src/css/chapter-actions.css',
           ],
         },
       } satisfies Preset.Options,
