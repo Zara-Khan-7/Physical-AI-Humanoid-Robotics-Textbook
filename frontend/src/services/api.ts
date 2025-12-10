@@ -71,22 +71,8 @@ export interface ApiError {
 }
 
 // API configuration
-// In production, this should be set via docusaurus.config.ts customFields
-// For local development, it defaults to localhost
-const getApiBaseUrl = (): string => {
-  // Check if we're in browser and have a custom config
-  if (typeof window !== 'undefined') {
-    // Try to get from Docusaurus site config
-    const siteConfig = (window as any).__DOCUSAURUS__;
-    if (siteConfig?.siteConfig?.customFields?.apiUrl) {
-      return siteConfig.siteConfig.customFields.apiUrl;
-    }
-  }
-  // Default for local development
-  return 'http://localhost:8000/api/v1';
-};
-
-const API_BASE_URL = getApiBaseUrl();
+// Production API URL on HuggingFace Spaces
+const API_BASE_URL = 'https://zaraa7-physical-ai-textbook-api.hf.space/api/v1';
 
 /**
  * Custom error class for API errors.
