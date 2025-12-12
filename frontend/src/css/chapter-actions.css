@@ -183,6 +183,26 @@
   text-align: right;
 }
 
+/* Agent badge */
+.agent-badge {
+  margin-left: auto;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  opacity: 0.8;
+}
+
+.chapter-actions-content--translated .agent-badge {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+[data-theme='dark'] .agent-badge {
+  background: rgba(0, 0, 0, 0.2);
+}
+
 /* Mobile responsiveness */
 @media (max-width: 600px) {
   .chapter-actions {
