@@ -90,36 +90,68 @@ export class ApiClientError extends Error {
 }
 
 /**
+ * Safely parse JSON response, handling HTML error pages from HuggingFace
+ */
+async function safeJsonParse<T>(response: Response): Promise<T> {
+  const text = await response.text();
+  try {
+    return JSON.parse(text);
+  } catch {
+    // If JSON parsing fails, it might be HTML (HF Space sleeping/error page)
+    if (text.includes('<!DOCTYPE') || text.includes('<html') || text.includes('Your space')) {
+      throw new ApiClientError(
+        'Service temporarily unavailable',
+        503,
+        'The API service is waking up. Please try again in a moment.'
+      );
+    }
+    throw new ApiClientError(
+      'Invalid response',
+      500,
+      'Received invalid response from server'
+    );
+  }
+}
+
+/**
  * Make a fetch request with error handling.
  */
 async function fetchWithErrorHandling<T>(
   url: string,
   options: RequestInit = {}
 ): Promise<T> {
-  const response = await fetch(url, {
-    ...options,
-    headers: {
-      'Content-Type': 'application/json',
-      ...options.headers,
-    },
-  });
+  try {
+    const response = await fetch(url, {
+      ...options,
+      headers: {
+        'Content-Type': 'application/json',
+        ...options.headers,
+      },
+    });
 
-  if (!response.ok) {
-    let detail = 'Unknown error';
-    try {
-      const errorData: ApiError = await response.json();
-      detail = errorData.detail || detail;
-    } catch {
-      detail = response.statusText;
+    const data = await safeJsonParse<T | ApiError>(response);
+
+    if (!response.ok) {
+      const errorData = data as ApiError;
+      throw new ApiClientError(
+        `API request failed: ${response.status}`,
+        response.status,
+        errorData.detail || 'Unknown error'
+      );
     }
+
+    return data as T;
+  } catch (error) {
+    if (error instanceof ApiClientError) {
+      throw error;
+    }
+    // Network error or other fetch error
     throw new ApiClientError(
-      `API request failed: ${response.status}`,
-      response.status,
-      detail
+      'Network error',
+      0,
+      'Unable to connect to the server. Please check your connection.'
     );
   }
-
-  return response.json();
 }
 
 /**
@@ -158,8 +190,22 @@ export const apiClient = {
    */
   async isAvailable(): Promise<boolean> {
     try {
-      await this.health();
-      return true;
+      const response = await fetch(`${API_BASE_URL}/health`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      // Check if we got a valid JSON response
+      const text = await response.text();
+      try {
+        JSON.parse(text);
+        return response.ok;
+      } catch {
+        // HTML response means service is sleeping
+        return false;
+      }
     } catch {
       return false;
     }

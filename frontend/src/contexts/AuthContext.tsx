@@ -80,6 +80,20 @@ function setStoredUser(user: User): void {
   }
 }
 
+// Helper function to safely parse JSON response
+async function safeJsonParse(response: Response): Promise<any> {
+  const text = await response.text();
+  try {
+    return JSON.parse(text);
+  } catch {
+    // If JSON parsing fails, it might be HTML (HF Space sleeping/error page)
+    if (text.includes('<!DOCTYPE') || text.includes('<html') || text.includes('Your space')) {
+      throw new Error('Service is temporarily unavailable. Please try again in a moment.');
+    }
+    throw new Error('Invalid response from server');
+  }
+}
+
 export function AuthProvider({ children }: { children: React.ReactNode }): JSX.Element {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -100,7 +114,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }): JSX.E
           });
 
           if (response.ok) {
-            const userData = await response.json();
+            const userData = await safeJsonParse(response);
             setUser(userData);
             setStoredUser(userData);
           } else {
@@ -128,12 +142,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }): JSX.E
       body: JSON.stringify({ email, password }),
     });
 
+    const data = await safeJsonParse(response);
+
     if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.detail || 'Sign in failed');
+      throw new Error(data.detail || 'Sign in failed');
     }
 
-    const data = await response.json();
     setUser(data.user);
     setStoredToken(data.token);
     setStoredUser(data.user);
@@ -148,12 +162,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }): JSX.E
       body: JSON.stringify(data),
     });
 
+    const result = await safeJsonParse(response);
+
     if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.detail || 'Sign up failed');
+      throw new Error(result.detail || 'Sign up failed');
     }
 
-    const result = await response.json();
     setUser(result.user);
     setStoredToken(result.token);
     setStoredUser(result.user);
@@ -193,12 +207,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }): JSX.E
       body: JSON.stringify(data),
     });
 
+    const updatedUser = await safeJsonParse(response);
+
     if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.detail || 'Update failed');
+      throw new Error(updatedUser.detail || 'Update failed');
     }
 
-    const updatedUser = await response.json();
     setUser(updatedUser);
     setStoredUser(updatedUser);
   }, []);

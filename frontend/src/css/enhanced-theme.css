@@ -803,6 +803,119 @@ h1, h2, h3, h4, h5, h6,
   color: var(--neon-purple) !important;
 }
 
+
+/* =====================
+   DARK MODE TEXT FIXES
+   ===================== */
+
+/* Ensure body text is visible in dark mode */
+[data-theme='dark'] body,
+[data-theme='dark'] .markdown,
+[data-theme='dark'] p,
+[data-theme='dark'] li,
+[data-theme='dark'] td,
+[data-theme='dark'] th,
+[data-theme='dark'] .theme-doc-markdown {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+[data-theme='dark'] .markdown p,
+[data-theme='dark'] .markdown li,
+[data-theme='dark'] .markdown td {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+/* Table text visibility */
+[data-theme='dark'] table {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+[data-theme='dark'] table th {
+  color: #ffffff !important;
+  background: linear-gradient(135deg, rgba(0, 245, 255, 0.3), rgba(191, 0, 255, 0.3)) !important;
+}
+
+[data-theme='dark'] table td {
+  color: rgba(255, 255, 255, 0.85) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+[data-theme='dark'] table tr:nth-child(even) {
+  background: rgba(255, 255, 255, 0.03) !important;
+}
+
+/* Code blocks text visibility */
+[data-theme='dark'] code {
+  color: #e0e0e0 !important;
+  background: rgba(0, 245, 255, 0.1) !important;
+}
+
+[data-theme='dark'] pre code {
+  color: #e0e0e0 !important;
+}
+
+/* Blockquote text */
+[data-theme='dark'] blockquote {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+/* Links in dark mode */
+[data-theme='dark'] a:not(.navbar__link):not(.menu__link) {
+  color: var(--neon-cyan) !important;
+}
+
+[data-theme='dark'] a:not(.navbar__link):not(.menu__link):hover {
+  color: var(--neon-purple) !important;
+}
+
+/* Sidebar text */
+[data-theme='dark'] .menu__link {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+/* TOC text */
+[data-theme='dark'] .table-of-contents__link {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+[data-theme='dark'] .table-of-contents__link:hover,
+[data-theme='dark'] .table-of-contents__link--active {
+  color: var(--neon-cyan) !important;
+}
+
+/* Navbar text */
+[data-theme='dark'] .navbar__link {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Footer text */
+[data-theme='dark'] .footer {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+[data-theme='dark'] .footer__link-item {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+/* Admonitions/Alerts text */
+[data-theme='dark'] .alert {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Search results text */
+[data-theme='dark'] .search-result-match {
+  color: #ffffff !important;
+}
+
+/* Pagination text */
+[data-theme='dark'] .pagination-nav__label {
+  color: var(--neon-cyan) !important;
+}
+
+[data-theme='dark'] .pagination-nav__sublabel {
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+
 /* =====================
    RESPONSIVE
    ===================== */
