@@ -2,57 +2,99 @@
  * Custom styles for the Physical AI Textbook.
  */
 
-/* Color palette */
+/* Import Enhanced Theme */
+@import './enhanced-theme.css';
+
+/* Color palette - Neon Theme */
 :root {
-  --ifm-color-primary: #3578e5;
-  --ifm-color-primary-dark: #1d68e1;
-  --ifm-color-primary-darker: #1b62d4;
-  --ifm-color-primary-darkest: #1651af;
-  --ifm-color-primary-light: #4e89e8;
-  --ifm-color-primary-lighter: #5a91ea;
-  --ifm-color-primary-lightest: #80aaef;
+  --ifm-color-primary: #00f5ff;
+  --ifm-color-primary-dark: #00d4e0;
+  --ifm-color-primary-darker: #00c4d1;
+  --ifm-color-primary-darkest: #00a3ad;
+  --ifm-color-primary-light: #33f7ff;
+  --ifm-color-primary-lighter: #4df8ff;
+  --ifm-color-primary-lightest: #80faff;
   --ifm-code-font-size: 95%;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  --docusaurus-highlighted-code-line-bg: rgba(0, 245, 255, 0.1);
+  --ifm-background-color: #0a0a1a;
+  --ifm-background-surface-color: #0f0f2a;
+  --ifm-navbar-background-color: rgba(10, 10, 26, 0.95);
+  --ifm-footer-background-color: #0a0a1a;
 }
 
 /* Dark mode colors */
 [data-theme='dark'] {
-  --ifm-color-primary: #4e89e8;
-  --ifm-color-primary-dark: #2c72e4;
-  --ifm-color-primary-darker: #1d68e1;
-  --ifm-color-primary-darkest: #1651af;
-  --ifm-color-primary-light: #6f9eec;
-  --ifm-color-primary-lighter: #80aaef;
-  --ifm-color-primary-lightest: #b3cbf5;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+  --ifm-color-primary: #00f5ff;
+  --ifm-color-primary-dark: #00d4e0;
+  --ifm-color-primary-darker: #00c4d1;
+  --ifm-color-primary-darkest: #00a3ad;
+  --ifm-color-primary-light: #33f7ff;
+  --ifm-color-primary-lighter: #4df8ff;
+  --ifm-color-primary-lightest: #80faff;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 245, 255, 0.15);
+  --ifm-background-color: #0a0a1a;
+  --ifm-background-surface-color: #0f0f2a;
+}
+
+/* Enhanced Navbar */
+.navbar {
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(0, 245, 255, 0.1);
+}
+
+.navbar__title {
+  font-family: 'Orbitron', sans-serif !important;
+  font-weight: 700;
+  background: linear-gradient(135deg, #00f5ff, #bf00ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.navbar__link {
+  font-family: 'Rajdhani', sans-serif !important;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.navbar__link:hover {
+  color: #00f5ff !important;
+  text-shadow: 0 0 10px rgba(0, 245, 255, 0.5);
 }
 
 /* Typography improvements */
 .markdown h1:first-child {
   font-size: 2.5rem;
+  font-family: 'Orbitron', sans-serif !important;
 }
 
 .markdown h2 {
   margin-top: 2rem;
+  font-family: 'Rajdhani', sans-serif !important;
 }
 
 /* Table improvements */
 table {
   display: table;
   width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
 }
 
 table th {
-  background-color: var(--ifm-color-emphasis-100);
+  background: linear-gradient(135deg, rgba(0, 245, 255, 0.2), rgba(191, 0, 255, 0.2));
+  color: white;
 }
 
 [data-theme='dark'] table th {
-  background-color: var(--ifm-color-emphasis-200);
+  background: linear-gradient(135deg, rgba(0, 245, 255, 0.2), rgba(191, 0, 255, 0.2));
 }
 
 /* Code blocks */
 .prism-code {
   font-size: 0.9rem;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 245, 255, 0.2);
 }
 
 /* Math equations */
@@ -65,6 +107,8 @@ table th {
 /* Admonitions (callouts) */
 .alert {
   margin-bottom: 1rem;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 245, 255, 0.2);
 }
 
 /* RTL support for Urdu */
@@ -87,45 +131,61 @@ html[lang='ur'] .markdown ol {
 }
 
 /* Sidebar styling */
+.theme-doc-sidebar-container {
+  background: linear-gradient(180deg, #0a0a1a, #0f0f2a) !important;
+  border-right: 1px solid rgba(0, 245, 255, 0.1);
+}
+
 .theme-doc-sidebar-menu {
   font-size: 0.95rem;
 }
 
+.menu__link {
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.menu__link:hover {
+  background: rgba(0, 245, 255, 0.1);
+  color: #00f5ff;
+}
+
+.menu__link--active {
+  background: linear-gradient(135deg, rgba(0, 245, 255, 0.2), rgba(191, 0, 255, 0.2));
+  color: #00f5ff;
+  border-left: 3px solid #00f5ff;
+}
+
 /* Footer - Enhanced visibility */
 .footer {
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  background: linear-gradient(135deg, #0a0a1a 0%, #0f0f2a 100%);
+  border-top: 1px solid rgba(0, 245, 255, 0.1);
   color: #ffffff;
 }
 
 .footer__title {
-  color: #ffffff !important;
+  color: #00f5ff !important;
+  font-family: 'Orbitron', sans-serif !important;
   font-weight: 700;
 }
 
 .footer__link-item {
-  color: #b8b8d1 !important;
-  transition: color 0.2s;
+  color: rgba(255, 255, 255, 0.7) !important;
+  transition: all 0.3s ease;
 }
 
 .footer__link-item:hover {
-  color: #667eea !important;
+  color: #00f5ff !important;
+  text-shadow: 0 0 10px rgba(0, 245, 255, 0.5);
   text-decoration: none;
 }
 
 .footer__copyright {
-  color: #8888a8 !important;
+  color: rgba(255, 255, 255, 0.5) !important;
 }
 
 [data-theme='dark'] .footer {
-  background: linear-gradient(135deg, #0d0d1a 0%, #0a1628 100%);
-}
-
-[data-theme='dark'] .footer__link-item {
-  color: #a0a0c0 !important;
-}
-
-[data-theme='dark'] .footer__link-item:hover {
-  color: #8b9cf8 !important;
+  background: linear-gradient(135deg, #050510 0%, #0a0a1a 100%);
 }
 
 /* Print styles */
@@ -133,7 +193,8 @@ html[lang='ur'] .markdown ol {
   .navbar,
   .theme-doc-sidebar-container,
   .chatbot-container,
-  .pagination-nav {
+  .pagination-nav,
+  .aria-welcome {
     display: none !important;
   }
 
@@ -171,32 +232,33 @@ html[lang='ur'] .markdown ol {
 
 /* Search highlighting */
 .search-result-match {
-  background-color: rgba(53, 120, 229, 0.2);
+  background-color: rgba(0, 245, 255, 0.2);
   padding: 0 2px;
   border-radius: 2px;
 }
 
 /* Image styling */
 .markdown img {
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(0, 245, 255, 0.1);
 }
 
 [data-theme='dark'] .markdown img {
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
 }
 
 /* Blockquote styling */
 blockquote {
-  border-left: 4px solid var(--ifm-color-primary);
-  background-color: var(--ifm-color-emphasis-100);
+  border-left: 4px solid #00f5ff;
+  background: rgba(0, 245, 255, 0.05);
   padding: 1rem;
   margin: 1rem 0;
-  border-radius: 0 8px 8px 0;
+  border-radius: 0 12px 12px 0;
 }
 
 [data-theme='dark'] blockquote {
-  background-color: var(--ifm-color-emphasis-200);
+  background: rgba(0, 245, 255, 0.08);
 }
 
 /* Definition lists */
@@ -207,6 +269,7 @@ dl {
 dt {
   font-weight: bold;
   margin-top: 1rem;
+  color: #00f5ff;
 }
 
 dd {
@@ -216,12 +279,48 @@ dd {
 
 /* Review questions styling */
 .markdown ol:last-child {
-  background-color: var(--ifm-color-emphasis-100);
+  background: rgba(0, 245, 255, 0.05);
   padding: 1rem 1rem 1rem 2.5rem;
-  border-radius: 8px;
+  border-radius: 12px;
   margin-top: 2rem;
+  border: 1px solid rgba(0, 245, 255, 0.1);
 }
 
 [data-theme='dark'] .markdown ol:last-child {
-  background-color: var(--ifm-color-emphasis-200);
+  background: rgba(0, 245, 255, 0.08);
+}
+
+/* TOC styling */
+.table-of-contents__link {
+  transition: all 0.3s ease;
+}
+
+.table-of-contents__link:hover {
+  color: #00f5ff;
+}
+
+.table-of-contents__link--active {
+  color: #00f5ff !important;
+  font-weight: 600;
+}
+
+/* Pagination */
+.pagination-nav__link {
+  background: rgba(20, 20, 50, 0.6);
+  border: 1px solid rgba(0, 245, 255, 0.2);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.pagination-nav__link:hover {
+  border-color: #00f5ff;
+  box-shadow: 0 0 20px rgba(0, 245, 255, 0.2);
+}
+
+.pagination-nav__sublabel {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.pagination-nav__label {
+  color: #00f5ff;
 }

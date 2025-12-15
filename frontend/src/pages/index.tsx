@@ -1,83 +1,197 @@
-import React from 'react';
-import clsx from 'clsx';
+import React, { useState, useEffect } from 'react';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
-import styles from './index.module.css';
+import '../css/enhanced-theme.css';
 
-function HomepageHeader() {
-  const {siteConfig} = useDocusaurusContext();
-  return (
-    <header className={clsx('hero hero--primary', styles.heroBanner)}>
-      <div className="container">
-        <h1 className="hero__title">{siteConfig.title}</h1>
-        <p className="hero__subtitle">{siteConfig.tagline}</p>
-        <div className={styles.buttons}>
-          <Link
-            className="button button--secondary button--lg"
-            to="/docs/intro">
-            Start Learning
-          </Link>
-        </div>
-      </div>
-    </header>
-  );
-}
-
-const FeatureList = [
+// Chapter data with icons
+const chapters = [
   {
+    number: '01',
     title: 'Introduction to Physical AI',
+    description: 'Discover what Physical AI is, its revolutionary history, and why humanoid robots are reshaping our world.',
     link: '/docs/intro',
-    description: 'Understand what Physical AI is, its history, and why humanoid robots matter in the modern world.',
+    icon: '🤖',
   },
   {
+    number: '02',
     title: 'Foundations of Robotics',
+    description: 'Master the core concepts of kinematics, dynamics, and control theory that bring robots to life.',
     link: '/docs/foundations',
-    description: 'Learn the core concepts of kinematics, dynamics, and control theory that enable robot motion.',
+    icon: '⚙️',
   },
   {
+    number: '03',
     title: 'Sensors & Perception',
+    description: 'Explore how robots perceive reality through cameras, LiDAR, touch sensors, and sensor fusion.',
     link: '/docs/sensors',
-    description: 'Discover how robots sense their environment through cameras, LiDAR, and force sensors.',
+    icon: '👁️',
   },
   {
+    number: '04',
     title: 'Actuators & Movement',
+    description: 'From electric motors to artificial muscles — understand the mechanics of robotic motion.',
     link: '/docs/actuators',
-    description: 'From electric motors to artificial muscles - understand how robots generate motion.',
+    icon: '💪',
   },
   {
+    number: '05',
     title: 'AI Integration',
+    description: 'Dive into machine learning, deep learning, and reinforcement learning powering intelligent robots.',
     link: '/docs/ai-integration',
-    description: 'Explore machine learning, deep learning, and reinforcement learning applied to robotics.',
+    icon: '🧠',
   },
   {
+    number: '06',
     title: 'Applications & Future',
+    description: 'Real-world applications in healthcare, manufacturing, and the exciting future of humanoid robotics.',
     link: '/docs/applications',
-    description: 'Real-world applications in manufacturing, healthcare, and the future of humanoid robotics.',
+    icon: '🚀',
   },
 ];
 
-function Feature({title, link, description}) {
+// AI Features
+const aiFeatures = [
+  {
+    icon: '💬',
+    title: 'Ask Questions',
+    description: 'Get instant, accurate answers from textbook content',
+  },
+  {
+    icon: '🎯',
+    title: 'Personalized Learning',
+    description: 'Content adapts to your skill level automatically',
+  },
+  {
+    icon: '📚',
+    title: 'Smart Citations',
+    description: 'Every answer links back to source chapters',
+  },
+];
+
+// ARIA Welcome Component
+function AriaWelcome({ onClose, onChat }: { onClose: () => void; onChat: () => void }) {
+  const [displayText, setDisplayText] = useState('');
+  const [showCursor, setShowCursor] = useState(true);
+  const fullText = "Hi! I'm ARIA, your AI learning companion. Ready to explore the fascinating world of Physical AI and Humanoid Robotics?";
+
+  useEffect(() => {
+    let index = 0;
+    const timer = setInterval(() => {
+      if (index <= fullText.length) {
+        setDisplayText(fullText.slice(0, index));
+        index++;
+      } else {
+        clearInterval(timer);
+        setTimeout(() => setShowCursor(false), 1000);
+      }
+    }, 30);
+
+    return () => clearInterval(timer);
+  }, []);
+
   return (
-    <div className={clsx('col col--4')}>
-      <div className={styles.featureCard}>
-        <h3>
-          <Link to={link}>{title}</Link>
-        </h3>
-        <p>{description}</p>
+    <div className="aria-welcome">
+      <div className="aria-bubble">
+        <button className="aria-close" onClick={onClose} aria-label="Close">
+          ×
+        </button>
+        <div className="aria-header">
+          <div className="aria-avatar">
+            <div className="aria-face">
+              <div className="aria-eye aria-eye--left"></div>
+              <div className="aria-eye aria-eye--right"></div>
+              <div className="aria-mouth"></div>
+            </div>
+          </div>
+          <div>
+            <div className="aria-name">ARIA</div>
+            <div className="aria-title">AI Robotics Interactive Assistant</div>
+          </div>
+        </div>
+        <div className="aria-message">
+          <span className="typing-text">{displayText}</span>
+          {showCursor && <span className="cursor"></span>}
+        </div>
+        <div className="aria-actions">
+          <button className="aria-btn aria-btn--primary" onClick={onChat}>
+            Start Chat
+          </button>
+          <button className="aria-btn aria-btn--secondary" onClick={onClose}>
+            Later
+          </button>
+        </div>
       </div>
     </div>
   );
 }
 
-function HomepageFeatures() {
+// Particles Background
+function Particles() {
   return (
-    <section className={styles.features}>
+    <div className="particles-container">
+      {[...Array(12)].map((_, i) => (
+        <div key={i} className="particle" />
+      ))}
+    </div>
+  );
+}
+
+// Orbs Background
+function Orbs() {
+  return (
+    <>
+      <div className="orb orb-1" />
+      <div className="orb orb-2" />
+      <div className="orb orb-3" />
+    </>
+  );
+}
+
+// Hero Section
+function HeroSection() {
+  return (
+    <header className="hero--enhanced">
+      <Particles />
+      <Orbs />
+      <div className="hero-content">
+        <h1 className="hero-title">Physical AI & Humanoid Robotics</h1>
+        <p className="hero-subtitle">Essentials for the AI-Native Era</p>
+        <p className="hero-tagline">
+          An interactive, AI-powered textbook exploring the cutting-edge world of
+          intelligent machines and humanoid robots
+        </p>
+        <Link to="/docs/intro" className="cta-button">
+          <span>Begin Your Journey</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z" />
+          </svg>
+        </Link>
+      </div>
+    </header>
+  );
+}
+
+// Chapters Section
+function ChaptersSection() {
+  return (
+    <section className="chapters-section">
       <div className="container">
-        <h2 className={styles.sectionTitle}>Chapters</h2>
-        <div className="row">
-          {FeatureList.map((props, idx) => (
-            <Feature key={idx} {...props} />
+        <h2 className="section-title">Explore the Chapters</h2>
+        <div className="chapters-grid">
+          {chapters.map((chapter, idx) => (
+            <Link key={idx} to={chapter.link} className="chapter-card">
+              <span className="chapter-number">{chapter.number}</span>
+              <div className="chapter-icon">{chapter.icon}</div>
+              <h3 className="chapter-title">{chapter.title}</h3>
+              <p className="chapter-description">{chapter.description}</p>
+              <span className="chapter-link">
+                Explore Chapter
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z" />
+                </svg>
+              </span>
+            </Link>
           ))}
         </div>
       </div>
@@ -85,45 +199,80 @@ function HomepageFeatures() {
   );
 }
 
-function ChatbotSection() {
+// AI Features Section
+function AIFeaturesSection() {
   return (
-    <section className={styles.chatbotSection}>
+    <section className="ai-features-section">
       <div className="container">
-        <h2 className={styles.sectionTitle}>AI-Powered Learning Assistant</h2>
-        <p className={styles.chatbotDescription}>
-          This textbook features an intelligent chatbot that can answer your questions about Physical AI and Humanoid Robotics.
-          Look for the chat icon in the bottom-right corner of any page to start asking questions!
+        <h2 className="section-title">AI-Powered Learning</h2>
+        <p style={{ textAlign: 'center', color: 'rgba(255,255,255,0.7)', marginBottom: '3rem', fontSize: '1.1rem' }}>
+          Meet ARIA — your intelligent companion for exploring Physical AI
         </p>
-        <div className={styles.chatbotFeatures}>
-          <div className={styles.chatbotFeature}>
-            <strong>Ask Questions</strong>
-            <p>Get instant answers based on textbook content</p>
-          </div>
-          <div className={styles.chatbotFeature}>
-            <strong>Concept Explanations</strong>
-            <p>Complex topics explained in simple terms</p>
-          </div>
-          <div className={styles.chatbotFeature}>
-            <strong>Citations Included</strong>
-            <p>Every answer links back to relevant chapters</p>
-          </div>
+        <div className="ai-features-grid">
+          {aiFeatures.map((feature, idx) => (
+            <div key={idx} className="ai-feature-card">
+              <div className="ai-feature-icon">{feature.icon}</div>
+              <h3 className="ai-feature-title">{feature.title}</h3>
+              <p className="ai-feature-desc">{feature.description}</p>
+            </div>
+          ))}
         </div>
       </div>
     </section>
   );
 }
 
+// Main Component
 export default function Home(): JSX.Element {
-  const {siteConfig} = useDocusaurusContext();
+  const { siteConfig } = useDocusaurusContext();
+  const [showAria, setShowAria] = useState(false);
+  const [ariaDismissed, setAriaDismissed] = useState(false);
+
+  useEffect(() => {
+    // Check if ARIA was already dismissed this session
+    const dismissed = sessionStorage.getItem('aria_dismissed');
+    if (dismissed) {
+      setAriaDismissed(true);
+      return;
+    }
+
+    // Show ARIA after a short delay
+    const timer = setTimeout(() => {
+      setShowAria(true);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  const handleAriaClose = () => {
+    setShowAria(false);
+    setAriaDismissed(true);
+    sessionStorage.setItem('aria_dismissed', 'true');
+  };
+
+  const handleAriaChat = () => {
+    setShowAria(false);
+    setAriaDismissed(true);
+    sessionStorage.setItem('aria_dismissed', 'true');
+    // Find and click the chatbot toggle
+    const chatToggle = document.querySelector('.chatbot-toggle') as HTMLButtonElement;
+    if (chatToggle) {
+      chatToggle.click();
+    }
+  };
+
   return (
     <Layout
-      title={`Welcome`}
-      description="Physical AI and Humanoid Robotics - An AI-Native Textbook">
-      <HomepageHeader />
+      title="Welcome"
+      description="Physical AI and Humanoid Robotics - An AI-Native Textbook with ARIA, your intelligent learning companion">
       <main>
-        <HomepageFeatures />
-        <ChatbotSection />
+        <HeroSection />
+        <ChaptersSection />
+        <AIFeaturesSection />
       </main>
+      {showAria && !ariaDismissed && (
+        <AriaWelcome onClose={handleAriaClose} onChat={handleAriaChat} />
+      )}
     </Layout>
   );
 }
