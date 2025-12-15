@@ -108,11 +108,6 @@ const config: Config = {
           type: 'localeDropdown',
           position: 'right',
         },
-        {
-          href: 'https://github.com/Zara-Khan-7/Physical-AI-Humanoid-Robotics-Textbook',
-          label: 'GitHub',
-          position: 'right',
-        },
       ],
     },
     footer: {
@@ -149,15 +144,6 @@ const config: Config = {
             {
               label: 'Applications',
               to: '/docs/applications',
-            },
-          ],
-        },
-        {
-          title: 'Resources',
-          items: [
-            {
-              label: 'GitHub',
-              href: 'https://github.com/Zara-Khan-7/Physical-AI-Humanoid-Robotics-Textbook',
             },
           ],
         },

@@ -176,6 +176,8 @@ def initialize_agents(
     from .personalization_agent import PersonalizationAgent
     from .translation_agent import TranslationAgent
     from .auth_agent import AuthAgent
+    from .history_agent import HistoryAgent
+    from .ui_agent import UIAgent
 
     registry = get_registry()
 
@@ -208,6 +210,10 @@ def initialize_agents(
     ))
 
     registry.register(AuthAgent())
+
+    # Register new agents
+    registry.register(HistoryAgent())
+    registry.register(UIAgent())
 
     logger.info(f"Initialized {registry.agent_count} agents")
     return registry
