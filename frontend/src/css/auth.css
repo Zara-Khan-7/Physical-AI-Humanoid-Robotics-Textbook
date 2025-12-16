@@ -6,13 +6,15 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.7);
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.85);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 9999;
+  z-index: 999999;
   padding: 1rem;
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(10px);
   overflow-y: auto;
 }
 

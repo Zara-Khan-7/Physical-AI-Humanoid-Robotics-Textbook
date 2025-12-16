@@ -42,7 +42,7 @@
   position: fixed;
   bottom: 24px;
   right: 24px;
-  z-index: 1000;
+  z-index: 99999;
   font-family: var(--font-body, 'Inter', sans-serif);
 }
 
@@ -446,16 +446,15 @@
   margin: 0 0 12px 0;
   font-size: 20px;
   font-weight: 700;
-  background: var(--gradient-primary);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #00f5ff !important;
+  -webkit-text-fill-color: #00f5ff !important;
 }
 
 .chatbot-welcome p {
   margin: 0;
   font-size: 14px;
-  color: var(--chatbot-text-secondary);
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
 }
 
 /* Suggested questions */
@@ -473,7 +472,7 @@
   border-radius: 24px;
   padding: 10px 18px;
   font-size: 13px;
-  color: var(--neon-primary);
+  color: #00f5ff !important;
   cursor: pointer;
   transition: all 0.3s ease;
 }
@@ -492,9 +491,13 @@
   gap: 8px;
   padding: 10px 20px;
   font-size: 12px;
-  color: var(--chatbot-text-secondary);
+  color: #ffffff !important;
   border-top: 1px solid var(--chatbot-border);
-  background: rgba(10, 10, 26, 0.6);
+  background: rgba(10, 10, 26, 0.9);
+}
+
+.chatbot-status span {
+  color: #ffffff !important;
 }
 
 .chatbot-status-dot {

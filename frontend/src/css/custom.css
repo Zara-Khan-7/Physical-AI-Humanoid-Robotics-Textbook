@@ -325,144 +325,176 @@ dd {
   color: #00f5ff;
 }
 
-/* =====================
-   CRITICAL DARK MODE FIXES
-   ===================== */
+/* =====================================================
+   CRITICAL DARK MODE TEXT VISIBILITY FIXES
+   All text must be WHITE on dark backgrounds
+   ===================================================== */
 
-/* Force light text in dark mode - with maximum specificity */
-html[data-theme='dark'] body,
-html[data-theme='dark'] .main-wrapper,
-html[data-theme='dark'] article,
-html[data-theme='dark'] .container,
-html[data-theme='dark'] .markdown,
-html[data-theme='dark'] .theme-doc-markdown,
-html[data-theme='dark'] p,
-html[data-theme='dark'] span,
-html[data-theme='dark'] li,
-html[data-theme='dark'] td,
-html[data-theme='dark'] th,
-html[data-theme='dark'] div:not(.chatbot-container):not(.aria-welcome) {
-  color: #e0e0e0 !important;
+/* Base dark mode text - WHITE */
+[data-theme='dark'] {
+  --ifm-font-color-base: #ffffff !important;
+  --ifm-heading-color: #ffffff !important;
 }
 
-html[data-theme='dark'] h1,
-html[data-theme='dark'] h2,
-html[data-theme='dark'] h3,
-html[data-theme='dark'] h4,
-html[data-theme='dark'] h5,
-html[data-theme='dark'] h6 {
+[data-theme='dark'] body {
   color: #ffffff !important;
 }
 
-html[data-theme='dark'] .markdown h1 {
-  background: linear-gradient(135deg, #00f5ff, #bf00ff) !important;
-  -webkit-background-clip: text !important;
-  -webkit-text-fill-color: transparent !important;
-  background-clip: text !important;
+/* ALL text elements in dark mode - use !important to override everything */
+[data-theme='dark'] p,
+[data-theme='dark'] span,
+[data-theme='dark'] div,
+[data-theme='dark'] li,
+[data-theme='dark'] td,
+[data-theme='dark'] th,
+[data-theme='dark'] label,
+[data-theme='dark'] .markdown p,
+[data-theme='dark'] .markdown span,
+[data-theme='dark'] .markdown li,
+[data-theme='dark'] .theme-doc-markdown p,
+[data-theme='dark'] .theme-doc-markdown span,
+[data-theme='dark'] .theme-doc-markdown li,
+[data-theme='dark'] article p,
+[data-theme='dark'] article span,
+[data-theme='dark'] article li {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
 }
 
-html[data-theme='dark'] .markdown h2 {
+/* Headings in dark mode */
+[data-theme='dark'] h1,
+[data-theme='dark'] h2,
+[data-theme='dark'] h3,
+[data-theme='dark'] h4,
+[data-theme='dark'] h5,
+[data-theme='dark'] h6,
+[data-theme='dark'] .markdown h1,
+[data-theme='dark'] .markdown h2,
+[data-theme='dark'] .markdown h3,
+[data-theme='dark'] .markdown h4,
+[data-theme='dark'] .markdown h5,
+[data-theme='dark'] .markdown h6 {
   color: #00f5ff !important;
   -webkit-text-fill-color: #00f5ff !important;
 }
 
-html[data-theme='dark'] .markdown h3 {
+/* Links in dark mode */
+[data-theme='dark'] a,
+[data-theme='dark'] .markdown a {
+  color: #00f5ff !important;
+  -webkit-text-fill-color: #00f5ff !important;
+}
+
+[data-theme='dark'] a:hover {
   color: #bf00ff !important;
   -webkit-text-fill-color: #bf00ff !important;
 }
 
-/* Links */
-html[data-theme='dark'] a {
+/* Code in dark mode */
+[data-theme='dark'] code {
   color: #00f5ff !important;
+  -webkit-text-fill-color: #00f5ff !important;
+  background: rgba(0, 245, 255, 0.15) !important;
 }
 
-html[data-theme='dark'] a:hover {
-  color: #bf00ff !important;
+/* Tables in dark mode */
+[data-theme='dark'] table {
+  background: rgba(20, 20, 50, 0.6) !important;
 }
 
-/* Code */
-html[data-theme='dark'] code {
-  color: #00f5ff !important;
-  background: rgba(0, 245, 255, 0.1) !important;
-}
-
-/* Tables */
-html[data-theme='dark'] table {
-  background: rgba(20, 20, 50, 0.5) !important;
-}
-
-html[data-theme='dark'] table th {
+[data-theme='dark'] table th {
   background: linear-gradient(135deg, rgba(0, 245, 255, 0.3), rgba(191, 0, 255, 0.3)) !important;
   color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
 }
 
-html[data-theme='dark'] table td {
-  color: #e0e0e0 !important;
-  border-color: rgba(0, 245, 255, 0.2) !important;
+[data-theme='dark'] table td {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  border-color: rgba(0, 245, 255, 0.3) !important;
 }
 
-html[data-theme='dark'] table tr:nth-child(even) {
-  background: rgba(0, 245, 255, 0.05) !important;
-}
-
-/* Blockquotes */
-html[data-theme='dark'] blockquote {
-  color: #e0e0e0 !important;
-  background: rgba(0, 245, 255, 0.08) !important;
+/* Blockquotes in dark mode */
+[data-theme='dark'] blockquote,
+[data-theme='dark'] blockquote p {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  background: rgba(0, 245, 255, 0.1) !important;
   border-left-color: #00f5ff !important;
 }
 
-/* Sidebar */
-html[data-theme='dark'] .menu__link {
-  color: rgba(255, 255, 255, 0.8) !important;
-}
-
-html[data-theme='dark'] .menu__link:hover,
-html[data-theme='dark'] .menu__link--active {
-  color: #00f5ff !important;
-}
-
-/* Footer */
-html[data-theme='dark'] .footer {
+/* Sidebar in dark mode */
+[data-theme='dark'] .menu__link {
   color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
 }
 
-html[data-theme='dark'] .footer__link-item {
-  color: rgba(255, 255, 255, 0.7) !important;
+[data-theme='dark'] .menu__link:hover,
+[data-theme='dark'] .menu__link--active {
+  color: #00f5ff !important;
+  -webkit-text-fill-color: #00f5ff !important;
 }
 
-/* Navbar */
-html[data-theme='dark'] .navbar__link {
-  color: rgba(255, 255, 255, 0.9) !important;
+/* Footer in dark mode */
+[data-theme='dark'] .footer,
+[data-theme='dark'] .footer__title,
+[data-theme='dark'] .footer__link-item,
+[data-theme='dark'] .footer__copyright {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
 }
 
-/* TOC */
-html[data-theme='dark'] .table-of-contents__link {
-  color: rgba(255, 255, 255, 0.7) !important;
+/* Navbar in dark mode */
+[data-theme='dark'] .navbar__link {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
 }
 
-/* Alerts/Admonitions */
-html[data-theme='dark'] .alert,
-html[data-theme='dark'] .admonition {
-  color: #e0e0e0 !important;
+/* TOC in dark mode */
+[data-theme='dark'] .table-of-contents__link {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
 }
 
-/* Light mode - ensure dark text */
-html[data-theme='light'] body,
-html[data-theme='light'] .main-wrapper,
-html[data-theme='light'] article,
-html[data-theme='light'] p,
-html[data-theme='light'] span,
-html[data-theme='light'] li,
-html[data-theme='light'] td {
+/* Alerts/Admonitions in dark mode */
+[data-theme='dark'] .alert,
+[data-theme='dark'] .admonition,
+[data-theme='dark'] .alert p,
+[data-theme='dark'] .admonition p {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+/* Pagination in dark mode */
+[data-theme='dark'] .pagination-nav__sublabel,
+[data-theme='dark'] .pagination-nav__label {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+/* =====================================================
+   LIGHT MODE - Dark text on light backgrounds
+   ===================================================== */
+
+[data-theme='light'] body {
   color: #1a1a2e !important;
 }
 
-html[data-theme='light'] h1,
-html[data-theme='light'] h2,
-html[data-theme='light'] h3,
-html[data-theme='light'] h4,
-html[data-theme='light'] h5,
-html[data-theme='light'] h6 {
+[data-theme='light'] p,
+[data-theme='light'] span,
+[data-theme='light'] div,
+[data-theme='light'] li,
+[data-theme='light'] td {
+  color: #1a1a2e !important;
+  -webkit-text-fill-color: #1a1a2e !important;
+}
+
+[data-theme='light'] h1,
+[data-theme='light'] h2,
+[data-theme='light'] h3,
+[data-theme='light'] h4,
+[data-theme='light'] h5,
+[data-theme='light'] h6 {
   color: #0a0a1a !important;
+  -webkit-text-fill-color: #0a0a1a !important;
 }
