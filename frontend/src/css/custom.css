@@ -324,3 +324,145 @@ dd {
 .pagination-nav__label {
   color: #00f5ff;
 }
+
+/* =====================
+   CRITICAL DARK MODE FIXES
+   ===================== */
+
+/* Force light text in dark mode - with maximum specificity */
+html[data-theme='dark'] body,
+html[data-theme='dark'] .main-wrapper,
+html[data-theme='dark'] article,
+html[data-theme='dark'] .container,
+html[data-theme='dark'] .markdown,
+html[data-theme='dark'] .theme-doc-markdown,
+html[data-theme='dark'] p,
+html[data-theme='dark'] span,
+html[data-theme='dark'] li,
+html[data-theme='dark'] td,
+html[data-theme='dark'] th,
+html[data-theme='dark'] div:not(.chatbot-container):not(.aria-welcome) {
+  color: #e0e0e0 !important;
+}
+
+html[data-theme='dark'] h1,
+html[data-theme='dark'] h2,
+html[data-theme='dark'] h3,
+html[data-theme='dark'] h4,
+html[data-theme='dark'] h5,
+html[data-theme='dark'] h6 {
+  color: #ffffff !important;
+}
+
+html[data-theme='dark'] .markdown h1 {
+  background: linear-gradient(135deg, #00f5ff, #bf00ff) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+}
+
+html[data-theme='dark'] .markdown h2 {
+  color: #00f5ff !important;
+  -webkit-text-fill-color: #00f5ff !important;
+}
+
+html[data-theme='dark'] .markdown h3 {
+  color: #bf00ff !important;
+  -webkit-text-fill-color: #bf00ff !important;
+}
+
+/* Links */
+html[data-theme='dark'] a {
+  color: #00f5ff !important;
+}
+
+html[data-theme='dark'] a:hover {
+  color: #bf00ff !important;
+}
+
+/* Code */
+html[data-theme='dark'] code {
+  color: #00f5ff !important;
+  background: rgba(0, 245, 255, 0.1) !important;
+}
+
+/* Tables */
+html[data-theme='dark'] table {
+  background: rgba(20, 20, 50, 0.5) !important;
+}
+
+html[data-theme='dark'] table th {
+  background: linear-gradient(135deg, rgba(0, 245, 255, 0.3), rgba(191, 0, 255, 0.3)) !important;
+  color: #ffffff !important;
+}
+
+html[data-theme='dark'] table td {
+  color: #e0e0e0 !important;
+  border-color: rgba(0, 245, 255, 0.2) !important;
+}
+
+html[data-theme='dark'] table tr:nth-child(even) {
+  background: rgba(0, 245, 255, 0.05) !important;
+}
+
+/* Blockquotes */
+html[data-theme='dark'] blockquote {
+  color: #e0e0e0 !important;
+  background: rgba(0, 245, 255, 0.08) !important;
+  border-left-color: #00f5ff !important;
+}
+
+/* Sidebar */
+html[data-theme='dark'] .menu__link {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+html[data-theme='dark'] .menu__link:hover,
+html[data-theme='dark'] .menu__link--active {
+  color: #00f5ff !important;
+}
+
+/* Footer */
+html[data-theme='dark'] .footer {
+  color: #ffffff !important;
+}
+
+html[data-theme='dark'] .footer__link-item {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+/* Navbar */
+html[data-theme='dark'] .navbar__link {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* TOC */
+html[data-theme='dark'] .table-of-contents__link {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+/* Alerts/Admonitions */
+html[data-theme='dark'] .alert,
+html[data-theme='dark'] .admonition {
+  color: #e0e0e0 !important;
+}
+
+/* Light mode - ensure dark text */
+html[data-theme='light'] body,
+html[data-theme='light'] .main-wrapper,
+html[data-theme='light'] article,
+html[data-theme='light'] p,
+html[data-theme='light'] span,
+html[data-theme='light'] li,
+html[data-theme='light'] td {
+  color: #1a1a2e !important;
+}
+
+html[data-theme='light'] h1,
+html[data-theme='light'] h2,
+html[data-theme='light'] h3,
+html[data-theme='light'] h4,
+html[data-theme='light'] h5,
+html[data-theme='light'] h6 {
+  color: #0a0a1a !important;
+}

@@ -58,7 +58,8 @@ export default function Chatbot({ language = 'en' }: ChatbotProps): JSX.Element 
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [connectionStatus, setConnectionStatus] = useState<'connected' | 'disconnected' | 'loading'>('loading');
+  const [connectionStatus, setConnectionStatus] = useState<'connected' | 'disconnected' | 'loading' | 'waking'>('loading');
+  const [retryCount, setRetryCount] = useState(0);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
@@ -77,14 +78,38 @@ export default function Chatbot({ language = 'en' }: ChatbotProps): JSX.Element 
     }
   }, []);
 
-  // Check API connection
+  // Check API connection with retry logic
   useEffect(() => {
+    let retryTimer: ReturnType<typeof setTimeout>;
+
     const checkConnection = async () => {
       setConnectionStatus('loading');
       const available = await apiClient.isAvailable();
-      setConnectionStatus(available ? 'connected' : 'disconnected');
+
+      if (available) {
+        setConnectionStatus('connected');
+        setRetryCount(0);
+      } else if (retryCount < 3) {
+        // Service might be sleeping, show waking status and retry
+        setConnectionStatus('waking');
+        retryTimer = setTimeout(() => {
+          setRetryCount(prev => prev + 1);
+        }, 5000); // Retry every 5 seconds
+      } else {
+        setConnectionStatus('disconnected');
+      }
     };
+
     checkConnection();
+
+    return () => {
+      if (retryTimer) clearTimeout(retryTimer);
+    };
+  }, [retryCount]);
+
+  // Manual retry function
+  const retryConnection = useCallback(() => {
+    setRetryCount(0);
   }, []);
 
   // Scroll to bottom when messages change
@@ -302,10 +327,23 @@ export default function Chatbot({ language = 'en' }: ChatbotProps): JSX.Element 
                 ? language === 'ur'
                   ? 'جڑ رہا ہے...'
                   : 'Connecting...'
+                : connectionStatus === 'waking'
+                ? language === 'ur'
+                  ? 'سرور جاگ رہا ہے...'
+                  : 'Waking up server...'
                 : language === 'ur'
                 ? 'منقطع'
                 : 'Disconnected'}
             </span>
+            {connectionStatus === 'disconnected' && (
+              <button
+                className="chatbot-retry-btn"
+                onClick={retryConnection}
+                aria-label="Retry connection"
+              >
+                {language === 'ur' ? 'دوبارہ کوشش' : 'Retry'}
+              </button>
+            )}
           </div>
 
           {/* Input */}
@@ -321,11 +359,11 @@ export default function Chatbot({ language = 'en' }: ChatbotProps): JSX.Element 
                   : 'Type your question...'
               }
               rows={1}
-              disabled={isLoading || connectionStatus === 'disconnected'}
+              disabled={isLoading || connectionStatus === 'disconnected' || connectionStatus === 'loading'}
             />
             <button
               type="submit"
-              disabled={!input.trim() || isLoading || connectionStatus === 'disconnected'}
+              disabled={!input.trim() || isLoading || connectionStatus === 'disconnected' || connectionStatus === 'loading'}
               aria-label="Send message"
             >
               <SendIcon />
