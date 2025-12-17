@@ -140,13 +140,23 @@ export function AuthProvider({ children }: { children: React.ReactNode }): JSX.E
       const storedUser = getStoredUser();
 
       if (token && storedUser) {
-        // Verify token is still valid
+        // Immediately use stored user to avoid UI flicker
+        setUser(storedUser);
+        setIsLoading(false);
+
+        // Then verify token is still valid in background
         try {
+          const controller = new AbortController();
+          const timeoutId = setTimeout(() => controller.abort(), 5000); // 5s timeout
+
           const response = await fetch(`${API_BASE_URL}/auth/me`, {
             headers: {
               'Authorization': `Bearer ${token}`,
             },
+            signal: controller.signal,
           });
+
+          clearTimeout(timeoutId);
 
           if (response.ok) {
             const userData = await safeJsonParse(response);
@@ -155,14 +165,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }): JSX.E
           } else {
             // Token invalid, clear storage
             removeStoredToken();
+            setUser(null);
           }
         } catch {
-          // API unavailable, use stored user
-          setUser(storedUser);
+          // API unavailable, keep using stored user (already set)
         }
+      } else {
+        setIsLoading(false);
       }
-
-      setIsLoading(false);
     };
 
     loadUser();

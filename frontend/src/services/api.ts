@@ -213,7 +213,8 @@ export const apiClient = {
 };
 
 /**
- * LocalStorage helpers for conversation history.
+ * SessionStorage helpers for conversation history.
+ * Uses sessionStorage so welcome message shows on each new session/page load.
  */
 export const conversationStorage = {
   STORAGE_KEY: 'textbook_chat_history',
@@ -224,12 +225,12 @@ export const conversationStorage = {
    */
   getHistory(): ChatMessage[] {
     try {
-      const stored = localStorage.getItem(this.STORAGE_KEY);
+      const stored = sessionStorage.getItem(this.STORAGE_KEY);
       if (stored) {
         return JSON.parse(stored);
       }
     } catch {
-      console.warn('Failed to load chat history from localStorage');
+      console.warn('Failed to load chat history from sessionStorage');
     }
     return [];
   },
@@ -241,9 +242,9 @@ export const conversationStorage = {
     try {
       // Keep only the last MAX_MESSAGES
       const trimmed = messages.slice(-this.MAX_MESSAGES);
-      localStorage.setItem(this.STORAGE_KEY, JSON.stringify(trimmed));
+      sessionStorage.setItem(this.STORAGE_KEY, JSON.stringify(trimmed));
     } catch {
-      console.warn('Failed to save chat history to localStorage');
+      console.warn('Failed to save chat history to sessionStorage');
     }
   },
 
@@ -262,9 +263,9 @@ export const conversationStorage = {
    */
   clearHistory(): void {
     try {
-      localStorage.removeItem(this.STORAGE_KEY);
+      sessionStorage.removeItem(this.STORAGE_KEY);
     } catch {
-      console.warn('Failed to clear chat history from localStorage');
+      console.warn('Failed to clear chat history from sessionStorage');
     }
   },
 };
