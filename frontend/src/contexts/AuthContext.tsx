@@ -88,10 +88,45 @@ async function safeJsonParse(response: Response): Promise<any> {
   } catch {
     // If JSON parsing fails, it might be HTML (HF Space sleeping/error page)
     if (text.includes('<!DOCTYPE') || text.includes('<html') || text.includes('Your space')) {
-      throw new Error('Service is temporarily unavailable. Please try again in a moment.');
+      throw new Error('SERVER_SLEEPING');
     }
     throw new Error('Invalid response from server');
   }
+}
+
+// Helper function to fetch with retry for HuggingFace cold starts
+async function fetchWithRetry(
+  url: string,
+  options: RequestInit,
+  maxRetries: number = 6,
+  delayMs: number = 5000
+): Promise<Response> {
+  let lastError: Error | null = null;
+
+  for (let attempt = 0; attempt < maxRetries; attempt++) {
+    try {
+      const response = await fetch(url, options);
+
+      // Check if we got an HTML response (server sleeping)
+      const contentType = response.headers.get('content-type');
+      if (contentType && !contentType.includes('application/json')) {
+        // Server might be sleeping, wait and retry
+        if (attempt < maxRetries - 1) {
+          await new Promise(resolve => setTimeout(resolve, delayMs));
+          continue;
+        }
+      }
+
+      return response;
+    } catch (error) {
+      lastError = error instanceof Error ? error : new Error('Network error');
+      if (attempt < maxRetries - 1) {
+        await new Promise(resolve => setTimeout(resolve, delayMs));
+      }
+    }
+  }
+
+  throw lastError || new Error('Failed to connect after multiple attempts');
 }
 
 export function AuthProvider({ children }: { children: React.ReactNode }): JSX.Element {
@@ -134,43 +169,67 @@ export function AuthProvider({ children }: { children: React.ReactNode }): JSX.E
   }, []);
 
   const signIn = useCallback(async (email: string, password: string) => {
-    const response = await fetch(`${API_BASE_URL}/auth/signin`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ email, password }),
-    });
+    try {
+      const response = await fetchWithRetry(
+        `${API_BASE_URL}/auth/signin`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email, password }),
+        },
+        6, // 6 retries
+        5000 // 5 seconds between retries
+      );
 
-    const data = await safeJsonParse(response);
+      const data = await safeJsonParse(response);
 
-    if (!response.ok) {
-      throw new Error(data.detail || 'Sign in failed');
+      if (!response.ok) {
+        throw new Error(data.detail || 'Sign in failed');
+      }
+
+      setUser(data.user);
+      setStoredToken(data.token);
+      setStoredUser(data.user);
+    } catch (error) {
+      if (error instanceof Error && error.message === 'SERVER_SLEEPING') {
+        throw new Error('Server is waking up. Please wait 30-60 seconds and try again.');
+      }
+      throw error;
     }
-
-    setUser(data.user);
-    setStoredToken(data.token);
-    setStoredUser(data.user);
   }, []);
 
   const signUp = useCallback(async (data: SignUpData) => {
-    const response = await fetch(`${API_BASE_URL}/auth/signup`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    });
+    try {
+      const response = await fetchWithRetry(
+        `${API_BASE_URL}/auth/signup`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        },
+        6, // 6 retries
+        5000 // 5 seconds between retries
+      );
 
-    const result = await safeJsonParse(response);
+      const result = await safeJsonParse(response);
 
-    if (!response.ok) {
-      throw new Error(result.detail || 'Sign up failed');
+      if (!response.ok) {
+        throw new Error(result.detail || 'Sign up failed');
+      }
+
+      setUser(result.user);
+      setStoredToken(result.token);
+      setStoredUser(result.user);
+    } catch (error) {
+      if (error instanceof Error && error.message === 'SERVER_SLEEPING') {
+        throw new Error('Server is waking up. Please wait 30-60 seconds and try again.');
+      }
+      throw error;
     }
-
-    setUser(result.user);
-    setStoredToken(result.token);
-    setStoredUser(result.user);
   }, []);
 
   const signOut = useCallback(async () => {

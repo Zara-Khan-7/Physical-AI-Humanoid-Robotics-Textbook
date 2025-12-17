@@ -60,6 +60,7 @@ export default function Chatbot({ language = 'en' }: ChatbotProps): JSX.Element 
   const [isLoading, setIsLoading] = useState(false);
   const [connectionStatus, setConnectionStatus] = useState<'connected' | 'disconnected' | 'loading' | 'waking'>('loading');
   const [retryCount, setRetryCount] = useState(0);
+  const [wakingProgress, setWakingProgress] = useState(0);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
@@ -78,25 +79,34 @@ export default function Chatbot({ language = 'en' }: ChatbotProps): JSX.Element 
     }
   }, []);
 
-  // Check API connection with retry logic
+  // Check API connection with extended retry logic for HuggingFace cold starts
+  // HuggingFace free tier can take 30-60 seconds to wake up
   useEffect(() => {
     let retryTimer: ReturnType<typeof setTimeout>;
+    const MAX_RETRIES = 12; // 12 retries × 5 seconds = 60 seconds total
 
     const checkConnection = async () => {
-      setConnectionStatus('loading');
+      if (retryCount === 0) {
+        setConnectionStatus('loading');
+        setWakingProgress(0);
+      }
+
       const available = await apiClient.isAvailable();
 
       if (available) {
         setConnectionStatus('connected');
         setRetryCount(0);
-      } else if (retryCount < 3) {
+        setWakingProgress(0);
+      } else if (retryCount < MAX_RETRIES) {
         // Service might be sleeping, show waking status and retry
         setConnectionStatus('waking');
+        setWakingProgress(Math.round((retryCount / MAX_RETRIES) * 100));
         retryTimer = setTimeout(() => {
           setRetryCount(prev => prev + 1);
         }, 5000); // Retry every 5 seconds
       } else {
         setConnectionStatus('disconnected');
+        setWakingProgress(0);
       }
     };
 
@@ -110,6 +120,7 @@ export default function Chatbot({ language = 'en' }: ChatbotProps): JSX.Element 
   // Manual retry function
   const retryConnection = useCallback(() => {
     setRetryCount(0);
+    setWakingProgress(0);
   }, []);
 
   // Scroll to bottom when messages change
@@ -329,8 +340,8 @@ export default function Chatbot({ language = 'en' }: ChatbotProps): JSX.Element 
                   : 'Connecting...'
                 : connectionStatus === 'waking'
                 ? language === 'ur'
-                  ? 'سرور جاگ رہا ہے...'
-                  : 'Waking up server...'
+                  ? `سرور جاگ رہا ہے... (${wakingProgress}%)`
+                  : `Waking up server... (${wakingProgress}%)`
                 : language === 'ur'
                 ? 'منقطع'
                 : 'Disconnected'}
