@@ -917,6 +917,202 @@ h1, h2, h3, h4, h5, h6,
 }
 
 /* =====================
+   LIGHT MODE OVERRIDES
+   ===================== */
+
+/* Light mode color palette */
+[data-theme='light'] {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8f9fa;
+  --bg-card: rgba(255, 255, 255, 0.9);
+  --text-primary: #1a1a2e;
+  --text-secondary: #4a4a6a;
+}
+
+/* Hero section light mode */
+[data-theme='light'] .hero--enhanced {
+  background: linear-gradient(135deg, #f0f4ff 0%, #e8e0ff 50%, #e0f0ff 100%) !important;
+}
+
+[data-theme='light'] .hero--enhanced::before {
+  background-image:
+    linear-gradient(rgba(0, 102, 204, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 102, 204, 0.08) 1px, transparent 1px) !important;
+}
+
+[data-theme='light'] .hero-title {
+  background: linear-gradient(135deg, #0066cc, #6600cc, #cc0066, #0066cc) !important;
+  background-size: 300% 300% !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  filter: drop-shadow(0 0 20px rgba(0, 102, 204, 0.3)) !important;
+}
+
+[data-theme='light'] .hero-subtitle {
+  color: #1a1a2e !important;
+  text-shadow: none !important;
+}
+
+[data-theme='light'] .hero-tagline {
+  color: #4a4a6a !important;
+}
+
+/* Orbs in light mode */
+[data-theme='light'] .orb-1 {
+  background: radial-gradient(circle, rgba(0, 102, 204, 0.15), transparent) !important;
+}
+
+[data-theme='light'] .orb-2 {
+  background: radial-gradient(circle, rgba(102, 0, 204, 0.12), transparent) !important;
+}
+
+[data-theme='light'] .orb-3 {
+  background: radial-gradient(circle, rgba(0, 153, 102, 0.1), transparent) !important;
+}
+
+/* Chapters section light mode */
+[data-theme='light'] .chapters-section {
+  background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%) !important;
+}
+
+[data-theme='light'] .chapters-section::before {
+  background: linear-gradient(90deg, transparent, #0066cc, #6600cc, transparent) !important;
+}
+
+[data-theme='light'] .section-title {
+  background: linear-gradient(135deg, #0066cc, #6600cc) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+}
+
+[data-theme='light'] .section-title::after {
+  background: linear-gradient(90deg, #0066cc, #6600cc) !important;
+  box-shadow: 0 0 15px rgba(0, 102, 204, 0.4) !important;
+}
+
+/* Chapter cards light mode */
+[data-theme='light'] .chapter-card {
+  background: rgba(255, 255, 255, 0.9) !important;
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08) !important;
+}
+
+[data-theme='light'] .chapter-card:hover {
+  box-shadow: 0 15px 40px rgba(0, 102, 204, 0.2) !important;
+}
+
+[data-theme='light'] .chapter-title {
+  color: #1a1a2e !important;
+}
+
+[data-theme='light'] .chapter-description {
+  color: #4a4a6a !important;
+}
+
+[data-theme='light'] .chapter-number {
+  color: #1a1a2e !important;
+  opacity: 0.08 !important;
+}
+
+/* AI Features section light mode */
+[data-theme='light'] .ai-features-section {
+  background: linear-gradient(180deg, #f8f9fa 0%, #f0f4ff 100%) !important;
+}
+
+[data-theme='light'] .ai-feature-card {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid rgba(0, 102, 204, 0.15) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06) !important;
+}
+
+[data-theme='light'] .ai-feature-card:hover {
+  border-color: #0066cc !important;
+  box-shadow: 0 10px 30px rgba(0, 102, 204, 0.15) !important;
+}
+
+[data-theme='light'] .ai-feature-title {
+  color: #1a1a2e !important;
+}
+
+[data-theme='light'] .ai-feature-desc {
+  color: #4a4a6a !important;
+}
+
+/* ARIA welcome bubble light mode */
+[data-theme='light'] .aria-bubble {
+  background: rgba(255, 255, 255, 0.98) !important;
+  border: 1px solid rgba(0, 102, 204, 0.2) !important;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15) !important;
+}
+
+[data-theme='light'] .aria-message {
+  color: #1a1a2e !important;
+}
+
+[data-theme='light'] .aria-title {
+  color: #4a4a6a !important;
+}
+
+[data-theme='light'] .aria-btn--secondary {
+  background: rgba(0, 0, 0, 0.05) !important;
+  color: #1a1a2e !important;
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
+}
+
+[data-theme='light'] .aria-btn--secondary:hover {
+  background: rgba(0, 0, 0, 0.1) !important;
+}
+
+/* CTA button light mode */
+[data-theme='light'] .cta-button {
+  background: linear-gradient(135deg, #0066cc, #6600cc) !important;
+  box-shadow: 0 0 20px rgba(0, 102, 204, 0.3), 0 10px 40px rgba(0, 0, 0, 0.15) !important;
+}
+
+[data-theme='light'] .cta-button:hover {
+  box-shadow: 0 0 35px rgba(0, 102, 204, 0.5), 0 15px 50px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Sidebar light mode */
+[data-theme='light'] .theme-doc-sidebar-container {
+  background: #f8f9fa !important;
+}
+
+[data-theme='light'] .menu__link {
+  color: #1a1a2e !important;
+}
+
+[data-theme='light'] .menu__link:hover {
+  background: rgba(0, 102, 204, 0.1) !important;
+  color: #0066cc !important;
+}
+
+[data-theme='light'] .menu__link--active {
+  background: linear-gradient(135deg, rgba(0, 102, 204, 0.15), rgba(102, 0, 204, 0.15)) !important;
+  color: #0066cc !important;
+  border-left: 3px solid #0066cc !important;
+}
+
+/* Markdown headings light mode */
+[data-theme='light'] .markdown h1 {
+  background: linear-gradient(135deg, #0066cc, #6600cc) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+}
+
+[data-theme='light'] .markdown h2 {
+  color: #0066cc !important;
+  border-bottom: 2px solid rgba(0, 102, 204, 0.2) !important;
+}
+
+[data-theme='light'] .markdown h3 {
+  color: #6600cc !important;
+}
+
+/* =====================
    RESPONSIVE
    ===================== */
 
