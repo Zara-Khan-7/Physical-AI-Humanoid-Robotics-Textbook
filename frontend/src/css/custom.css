@@ -615,3 +615,164 @@ dd {
 [data-theme='light'] .pagination-nav__label {
   color: #1a1a2e !important;
 }
+
+/* ==========================================
+   LOCALE DROPDOWN STYLING
+   ========================================== */
+
+/* Make locale dropdown visible and styled */
+.navbar__item.dropdown.dropdown--hoverable.dropdown--right {
+  display: flex !important;
+}
+
+/* Locale dropdown button */
+.navbar__link[class*="locale"],
+.dropdown__link[class*="locale"],
+.navbar__item.dropdown a.navbar__link {
+  display: flex !important;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+/* Light mode locale dropdown */
+[data-theme='light'] .navbar__item.dropdown a.navbar__link {
+  color: #1a1a2e !important;
+  background: rgba(0, 102, 204, 0.08);
+  border: 1px solid rgba(0, 102, 204, 0.2);
+}
+
+[data-theme='light'] .navbar__item.dropdown a.navbar__link:hover {
+  color: #0066cc !important;
+  background: rgba(0, 102, 204, 0.15);
+  text-shadow: none;
+}
+
+/* Light mode dropdown menu */
+[data-theme='light'] .dropdown__menu {
+  background: #ffffff !important;
+  border: 1px solid rgba(0, 102, 204, 0.2) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1) !important;
+}
+
+[data-theme='light'] .dropdown__link {
+  color: #1a1a2e !important;
+}
+
+[data-theme='light'] .dropdown__link:hover {
+  background: rgba(0, 102, 204, 0.1) !important;
+  color: #0066cc !important;
+}
+
+[data-theme='light'] .dropdown__link--active {
+  background: rgba(0, 102, 204, 0.15) !important;
+  color: #0066cc !important;
+}
+
+/* Dark mode locale dropdown */
+[data-theme='dark'] .navbar__item.dropdown a.navbar__link {
+  color: #ffffff !important;
+  background: rgba(0, 245, 255, 0.1);
+  border: 1px solid rgba(0, 245, 255, 0.3);
+}
+
+[data-theme='dark'] .navbar__item.dropdown a.navbar__link:hover {
+  color: #00f5ff !important;
+  background: rgba(0, 245, 255, 0.2);
+  box-shadow: 0 0 15px rgba(0, 245, 255, 0.3);
+}
+
+/* Dark mode dropdown menu */
+[data-theme='dark'] .dropdown__menu {
+  background: rgba(15, 15, 42, 0.98) !important;
+  border: 1px solid rgba(0, 245, 255, 0.2) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 20px rgba(0, 245, 255, 0.1) !important;
+}
+
+[data-theme='dark'] .dropdown__link {
+  color: #ffffff !important;
+}
+
+[data-theme='dark'] .dropdown__link:hover {
+  background: rgba(0, 245, 255, 0.1) !important;
+  color: #00f5ff !important;
+}
+
+[data-theme='dark'] .dropdown__link--active {
+  background: rgba(0, 245, 255, 0.15) !important;
+  color: #00f5ff !important;
+}
+
+/* Language icon globe */
+.navbar__item.dropdown svg,
+.iconLanguage_nlXk {
+  width: 18px;
+  height: 18px;
+}
+
+[data-theme='light'] .navbar__item.dropdown svg,
+[data-theme='light'] .iconLanguage_nlXk {
+  color: #0066cc !important;
+  fill: #0066cc !important;
+}
+
+[data-theme='dark'] .navbar__item.dropdown svg,
+[data-theme='dark'] .iconLanguage_nlXk {
+  color: #00f5ff !important;
+  fill: #00f5ff !important;
+}
+
+/* ==========================================
+   LIGHT MODE NAVBAR OVERRIDES
+   ========================================== */
+
+[data-theme='light'] .navbar {
+  background: #ffffff !important;
+  border-bottom: 1px solid rgba(0, 102, 204, 0.1) !important;
+}
+
+[data-theme='light'] .navbar__title {
+  background: linear-gradient(135deg, #0066cc, #6600cc) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+}
+
+[data-theme='light'] .navbar__link {
+  color: #1a1a2e !important;
+}
+
+[data-theme='light'] .navbar__link:hover {
+  color: #0066cc !important;
+  text-shadow: none !important;
+}
+
+[data-theme='light'] .navbar__link--active {
+  color: #0066cc !important;
+}
+
+/* Light mode footer */
+[data-theme='light'] .footer {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%) !important;
+  border-top: 1px solid rgba(0, 102, 204, 0.1) !important;
+}
+
+[data-theme='light'] .footer__title {
+  color: #0066cc !important;
+}
+
+[data-theme='light'] .footer__link-item {
+  color: #4a4a6a !important;
+}
+
+[data-theme='light'] .footer__link-item:hover {
+  color: #0066cc !important;
+  text-shadow: none !important;
+}
+
+[data-theme='light'] .footer__copyright {
+  color: #6a6a8a !important;
+}

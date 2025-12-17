@@ -37,6 +37,24 @@
   --chatbot-assistant-text: #ffffff;
 }
 
+/* Light mode variables - proper light theme */
+[data-theme='light'] {
+  --chatbot-primary: #0066cc;
+  --chatbot-primary-hover: #0052a3;
+  --chatbot-bg: rgba(255, 255, 255, 0.95);
+  --chatbot-bg-secondary: #f5f7fa;
+  --chatbot-border: rgba(0, 102, 204, 0.2);
+  --chatbot-text: #1a1a2e;
+  --chatbot-text-secondary: rgba(26, 26, 46, 0.7);
+  --chatbot-user-bg: linear-gradient(135deg, #0066cc 0%, #6600cc 100%);
+  --chatbot-user-text: #ffffff;
+  --chatbot-assistant-bg: rgba(240, 244, 255, 0.9);
+  --chatbot-assistant-text: #1a1a2e;
+  --chatbot-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+  --chatbot-shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+  --chatbot-glow: 0 0 20px rgba(0, 102, 204, 0.3);
+}
+
 /* Chatbot container */
 .chatbot-container {
   position: fixed;
@@ -660,4 +678,158 @@
     opacity: 0.6;
     box-shadow: 0 0 20px currentColor;
   }
+}
+
+/* ==========================================
+   LIGHT MODE OVERRIDES
+   ========================================== */
+
+/* Light mode chat window */
+[data-theme='light'] .chatbot-window {
+  background: rgba(255, 255, 255, 0.98) !important;
+  border: 1px solid rgba(0, 102, 204, 0.2) !important;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15), 0 0 20px rgba(0, 102, 204, 0.1) !important;
+}
+
+/* Light mode messages container */
+[data-theme='light'] .chatbot-messages {
+  background: #f8f9fc !important;
+}
+
+[data-theme='light'] .chatbot-messages::before {
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(0, 102, 204, 0.05) 0%, transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(102, 0, 204, 0.05) 0%, transparent 40%);
+}
+
+/* Light mode assistant messages */
+[data-theme='light'] .chatbot-message--assistant {
+  background: rgba(240, 244, 255, 0.95) !important;
+  color: #1a1a2e !important;
+  border: 1px solid rgba(0, 102, 204, 0.15) !important;
+}
+
+/* Light mode user messages */
+[data-theme='light'] .chatbot-message--user {
+  background: linear-gradient(135deg, #0066cc 0%, #6600cc 100%) !important;
+  color: #ffffff !important;
+}
+
+/* Light mode welcome text */
+[data-theme='light'] .chatbot-welcome h4 {
+  color: #0066cc !important;
+  -webkit-text-fill-color: #0066cc !important;
+}
+
+[data-theme='light'] .chatbot-welcome p {
+  color: #4a4a6a !important;
+  -webkit-text-fill-color: #4a4a6a !important;
+}
+
+/* Light mode suggestions */
+[data-theme='light'] .chatbot-suggestion {
+  background: rgba(0, 102, 204, 0.08) !important;
+  border: 1px solid rgba(0, 102, 204, 0.25) !important;
+  color: #0066cc !important;
+}
+
+[data-theme='light'] .chatbot-suggestion:hover {
+  background: rgba(0, 102, 204, 0.15) !important;
+  border-color: #0066cc !important;
+  box-shadow: 0 0 15px rgba(0, 102, 204, 0.2) !important;
+}
+
+/* Light mode input area */
+[data-theme='light'] .chatbot-input {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border-top: 1px solid rgba(0, 102, 204, 0.15) !important;
+}
+
+[data-theme='light'] .chatbot-input textarea {
+  background: #ffffff !important;
+  color: #1a1a2e !important;
+  border: 1px solid rgba(0, 102, 204, 0.25) !important;
+}
+
+[data-theme='light'] .chatbot-input textarea:focus {
+  border-color: #0066cc !important;
+  box-shadow: 0 0 10px rgba(0, 102, 204, 0.15) !important;
+}
+
+[data-theme='light'] .chatbot-input textarea::placeholder {
+  color: #8a8aa0 !important;
+}
+
+/* Light mode status bar */
+[data-theme='light'] .chatbot-status {
+  background: rgba(248, 249, 252, 0.98) !important;
+  border-top: 1px solid rgba(0, 102, 204, 0.15) !important;
+}
+
+[data-theme='light'] .chatbot-status span {
+  color: #4a4a6a !important;
+}
+
+/* Light mode loading dots */
+[data-theme='light'] .chatbot-message--loading span {
+  background: #0066cc !important;
+  box-shadow: 0 0 8px rgba(0, 102, 204, 0.5) !important;
+}
+
+[data-theme='light'] .chatbot-message--loading span:nth-child(2) {
+  background: #6600cc !important;
+  box-shadow: 0 0 8px rgba(102, 0, 204, 0.5) !important;
+}
+
+[data-theme='light'] .chatbot-message--loading span:nth-child(3) {
+  background: #cc0066 !important;
+  box-shadow: 0 0 8px rgba(204, 0, 102, 0.5) !important;
+}
+
+/* Light mode code in messages */
+[data-theme='light'] .chatbot-message--assistant code {
+  background: rgba(0, 102, 204, 0.1) !important;
+  color: #0066cc !important;
+}
+
+[data-theme='light'] .chatbot-message--assistant pre {
+  background: #f0f4f8 !important;
+  border: 1px solid rgba(0, 102, 204, 0.15) !important;
+}
+
+[data-theme='light'] .chatbot-message--assistant pre code {
+  color: #0066cc !important;
+}
+
+/* Light mode toggle button */
+[data-theme='light'] .chatbot-toggle {
+  box-shadow: 0 0 15px rgba(0, 102, 204, 0.3), 0 8px 32px rgba(0, 0, 0, 0.1) !important;
+}
+
+[data-theme='light'] .chatbot-toggle:hover {
+  box-shadow: 0 0 30px rgba(0, 102, 204, 0.4), 0 0 60px rgba(0, 102, 204, 0.2) !important;
+}
+
+/* Light mode header gradient remains the same (looks good) */
+
+/* Light mode error message */
+[data-theme='light'] .chatbot-error {
+  background: linear-gradient(135deg, rgba(220, 53, 69, 0.1), rgba(255, 107, 53, 0.1)) !important;
+  border: 1px solid rgba(220, 53, 69, 0.3) !important;
+  color: #dc3545 !important;
+}
+
+/* Light mode citations */
+[data-theme='light'] .chatbot-citations {
+  border-top: 1px solid rgba(0, 102, 204, 0.15) !important;
+}
+
+[data-theme='light'] .chatbot-message--assistant .citation {
+  background: linear-gradient(135deg, #0066cc 0%, #6600cc 100%) !important;
+  color: white !important;
+}
+
+/* Light mode scrollbar */
+[data-theme='light'] .chatbot-messages::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #0066cc, #6600cc) !important;
 }
